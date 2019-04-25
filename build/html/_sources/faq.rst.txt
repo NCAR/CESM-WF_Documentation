@@ -8,6 +8,8 @@ Common questions and answers
 
 * :ref:`pause_run`
 
+* :ref:`restart_when_stopped`
+
 * :ref:`where_diags`
 
 * :ref:`find_failure`
@@ -42,9 +44,21 @@ There are a couple of ways to do this depended what your end goal may be.
 How do you pause a run in order to evaluate it and start it back up?
 --------------------------------------------------------------------
 
-*  With the gui, select the task you would like to pause at and selct the "Hold" option.
+*  With the gui open, select the task you would like to pause at and selct the "Hold" option.
 
 *  When you are ready to continue the run, right click on the task and select the "Release" option.
+
+
+.. _restart_when_stopped:
+
+How do you restart a Cylc suite if it has stopped?
+--------------------------------------------------
+
+*  With the gui open, select the 'Run' button.
+
+*  In the window that pops up, select the 'restart' option and then hit 'Start'
+
+*  Do not select the cold-start option in this window unless you want to start the simulation from the beggining.   
 
 
 .. _where_diags:

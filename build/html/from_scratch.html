@@ -378,20 +378,20 @@ op level cylc suite directory off of your home directory.  Then for every “sui
 <span class="s2">                 case_st_archive_0003-01-01 =&gt; case_run_0005-01-01</span>
 <span class="s2">                 case_run_0005-01-01 =&gt; case_st_archive_0005-01-01</span>
 <span class="s2">                 case_st_archive_0005-01-01 =&gt; atm_averages_0005-01-01 &amp; ocn_averages_0005-01-01 &amp; lnd_averages_0005-01-01 &amp; ice_averages_0005-01-01 &amp; case_run_0007-01-01</span>
-<span class="s2">                 atm_averages_0005-01-01 =&gt; atm_diagnostics_0005-01-01</span>
-<span class="s2">                 ocn_averages_0005-01-01 =&gt; ocn_diagnostics_0005-01-01</span>
-<span class="s2">                 lnd_averages_0005-01-01 =&gt; lnd_diagnostics_0005-01-01</span>
-<span class="s2">                 ice_averages_0005-01-01 =&gt; ice_diagnostics_0005-01-01</span>
+<span class="s2">                 atm_averages_0005-01-01 =&gt; atm_diagnostics_0005-01-01 =&gt; atm_diagnostics_0005-01-01_post</span>
+<span class="s2">                 ocn_averages_0005-01-01 =&gt; ocn_diagnostics_0005-01-01 =&gt; ocn_diagnostics_0005-01-01_post</span>
+<span class="s2">                 lnd_averages_0005-01-01 =&gt; lnd_diagnostics_0005-01-01 =&gt; lnd_diagnostics_0005-01-01_post</span>
+<span class="s2">                 ice_averages_0005-01-01 =&gt; ice_diagnostics_0005-01-01 =&gt; ice_diagnostics_0005-01-01_post</span>
 <span class="s2">                 case_run_0007-01-01 =&gt; case_st_archive_0007-01-01</span>
 <span class="s2">                 case_st_archive_0007-01-01 =&gt; case_run_0009-01-01</span>
 <span class="s2">                 case_run_0009-01-01 =&gt; case_st_archive_0009-01-01</span>
 <span class="s2">                 case_st_archive_0009-01-01 =&gt; case_run_0011-01-01</span>
 <span class="s2">                 case_run_0011-01-01 =&gt; case_st_archive_0011-01-01</span>
 <span class="s2">                 case_st_archive_0011-01-01 =&gt; atm_averages_0010-01-01 &amp; ocn_averages_0010-01-01 &amp; lnd_averages_0010-01-01 &amp; ice_averages_0010-01-01 &amp; timeseriesL_0011-01-01</span>
-<span class="s2">                 atm_averages_0010-01-01 =&gt; atm_diagnostics_0010-01-01</span>
-<span class="s2">                 ocn_averages_0010-01-01 =&gt; ocn_diagnostics_0010-01-01</span>
-<span class="s2">                 lnd_averages_0010-01-01 =&gt; lnd_diagnostics_0010-01-01</span>
-<span class="s2">                 ice_averages_0010-01-01 =&gt; ice_diagnostics_0010-01-01</span>
+<span class="s2">                 atm_averages_0010-01-01 =&gt; atm_diagnostics_0010-01-01 =&gt; atm_diagnostics_0010-01-01_post</span>
+<span class="s2">                 ocn_averages_0010-01-01 =&gt; ocn_diagnostics_0010-01-01 =&gt; ocn_diagnostics_0010-01-01_post</span>
+<span class="s2">                 lnd_averages_0010-01-01 =&gt; lnd_diagnostics_0010-01-01 =&gt; lnd_diagnostics_0010-01-01_post</span>
+<span class="s2">                 ice_averages_0010-01-01 =&gt; ice_diagnostics_0010-01-01 =&gt; ice_diagnostics_0010-01-01_post</span>
 <span class="s2">                 timeseriesL_0011-01-01 =&gt; xconform_0011-01-01</span>
 <span class="s2">                &quot;&quot;&quot;</span>
 

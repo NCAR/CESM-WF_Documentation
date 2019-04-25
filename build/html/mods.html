@@ -58,6 +58,7 @@
 <li><a class="reference internal" href="#format-of-file"><span class="std std-ref">Format of the suite.rc File</span></a></li>
 <li><a class="reference internal" href="#updating-suites"><span class="std std-ref">Updating Suite Definitions</span></a></li>
 <li><a class="reference internal" href="#modifying-pe-count"><span class="std std-ref">Modifying PE Count</span></a></li>
+<li><a class="reference internal" href="#add-more-diags"><span class="std std-ref">Adding More Diagnostics</span></a></li>
 </ul>
 <div class="section" id="format-of-the-suite-rc-file">
 <span id="format-of-file"></span><h2>Format of the suite.rc File<a class="headerlink" href="#format-of-the-suite-rc-file" title="Permalink to this headline">¶</a></h2>
@@ -91,6 +92,83 @@
 <span id="id1"></span><h2>Modifying PE Count<a class="headerlink" href="#modifying-pe-count" title="Permalink to this headline">¶</a></h2>
 <p>Open the correct suite.rc file for editing and go to the final section and locate the section for the type of task you need to change.  For example, “[[case_run_{{dates_case_run[i]}} ]]”.  Then modify the “-l = select=……” line to match the top of your .case.run file in your case directory.</p>
 <p>After this change, you will need to follow the instructions found in the <a class="reference internal" href="#updating-suites"><span class="std std-ref">Updating Suite Definitions</span></a> section.</p>
+</div>
+<div class="section" id="adding-more-diagnostics">
+<span id="add-more-diags"></span><h2>Adding More Diagnostics<a class="headerlink" href="#adding-more-diagnostics" title="Permalink to this headline">¶</a></h2>
+<p>The first step is to add the dates for the diagnostics and their settings in the top portion of the suite.rc file.</p>
+<p>When you add diagnotics it’s important to add to all of the variables for that component.  The groups of variables include the following:</p>
+<ul>
+<li><p class="first">ATM diagnostics</p>
+<blockquote>
+<div><ul class="simple">
+<li>dates_atm_averages - add dates</li>
+<li>dates_atm_diagnostics - add dates</li>
+<li>ATMDIAG_test_first_yr - matches the xml variable</li>
+<li>ATMDIAG_test_nyrs - matches the xml variable</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">OCN diagnostics</p>
+<blockquote>
+<div><ul class="simple">
+<li>dates_ocn_averages - add dates</li>
+<li>dates_ocn_diagnostics - add dates</li>
+<li>OCNDIAG_YEAR0 - matches the xml variable</li>
+<li>OCNDIAG_YEAR1 - matches the xml variable</li>
+<li>OCNDIAG_TSERIES_YEAR0 - matches the xml variable</li>
+<li>OCNDIAG_TSERIES_YEAR1 - matches the xml variable</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">LND diagnostics</p>
+<blockquote>
+<div><ul class="simple">
+<li>dates_lnd_averages - add dates</li>
+<li>dates_lnd_diagnostics - add dates</li>
+<li>LNDDIAG_clim_first_yr_1 - matches the xml variable</li>
+<li>LNDDIAG_trends_first_yr_1 - matches the xml variable</li>
+<li>LNDDIAG_clim_num_yrs_1 - matches the xml variable</li>
+<li>LNDDIAG_trends_num_yrs_1 - matches the xml variable</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">ICE diagnostics</p>
+<blockquote>
+<div><ul class="simple">
+<li>dates_ice_averages - add dates</li>
+<li>dates_ice_diagnostics - add dates</li>
+<li>ICEDIAG_BEGYR_DIFF - matches the xml variable</li>
+<li>ICEDIAG_ENDYR_DIFF - matches the xml variable</li>
+<li>ICEDIAG_BEGYR_CONT - matches the xml variable</li>
+<li>ICEDIAG_ENDYR_CONT - matches the xml variable</li>
+<li>ICEDIAG_YRS_TO_AVG  - matches the xml variable</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>For each group of variables, make sure you add the same number of entries to each.  Other wise this will result in an error.</p>
+<p>The date variables in each group take a comma separated list.  For example, {% set dates_atm_averages = [‘0005-01-01’,‘0010-01-01’] %}.</p>
+<p>The DIAG variables also allow for comma speparated lists.  For example, {% set ATMDIAG_test_first_yr = [1,5] %}.</p>
+<p>Adding multiple entries allows the diagnostics to be ran more than once during the simulation.</p>
+<p>After you add the diagnostic entries to the lists, they need to be added to the dependency graph so Cylc know when to run them.  This is done in the [[dependencies]] section.  In order to insert the diagnostics, you can follow a similar syntax to what is shown here.</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span>              case_st_archive_0005-01-01 <span class="o">=</span>&gt; atm_averages_0005-01-01 <span class="p">&amp;</span> ocn_averages_0005-01-01 <span class="p">&amp;</span> lnd_averages_0005-01-01 <span class="p">&amp;</span> ice_averages_0005-01-01 <span class="p">&amp;</span> case_run_0007-01-01
+              atm_averages_0005-01-01 <span class="o">=</span>&gt; atm_diagnostics_0005-01-01 <span class="o">=</span>&gt; atm_diagnostics_0005-01-01_post
+              ocn_averages_0005-01-01 <span class="o">=</span>&gt; ocn_diagnostics_0005-01-01 <span class="o">=</span>&gt; ocn_diagnostics_0005-01-01_post
+              lnd_averages_0005-01-01 <span class="o">=</span>&gt; lnd_diagnostics_0005-01-01 <span class="o">=</span>&gt; lnd_diagnostics_0005-01-01_post
+              ice_averages_0005-01-01 <span class="o">=</span>&gt; ice_diagnostics_0005-01-01 <span class="o">=</span>&gt; ice_diagnostics_0005-01-01_post
+</pre></div>
+</td></tr></table></div>
+<p>After you have added the diagnostics into the dependency graph, save your file and run the following command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cylc graph &lt;your casename&gt;.suite.cmip6
+</pre></div>
+</div>
+<p>This will open up a window and display your new workflow grpah.  Make sure you don’t have any ‘float’/non-connected tasks and eerything looks as you would anticipate.</p>
+<p>Once everything looks okay, open up the gui and select the Control-&gt;Reload suite definition option.  You may have to close and reopen the gui if the new workflow doesn’t load.</p>
+<p>Once the tasks have been added, you will need to right click on them and choose ‘Insert’ to add them in.  Once you make the selection, a window will pop up with the task listed in the box.  If you have to add muliple tasks, you can replace part of the string with wild card characters to make this task easier.  Once added, the task will change from a gray outline to a blue outline.</p>
 </div>
 </div>
 

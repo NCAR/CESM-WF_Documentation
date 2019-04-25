@@ -35,6 +35,7 @@ After any changes to this file, you will need to follow the instructions found i
 
 * :ref:`modifying_pe_count`
 
+* :ref:`add_more_diags`
 
 .. _format_of_file:
 
@@ -81,6 +82,103 @@ Modifying PE Count
 Open the correct suite.rc file for editing and go to the final section and locate the section for the type of task you need to change.  For example, "[[case_run_{{dates_case_run[i]}} ]]".  Then modify the "-l = select=......" line to match the top of your .case.run file in your case directory.
 
 After this change, you will need to follow the instructions found in the :ref:`updating_suites` section.
+
+
+.. _add_more_diags:
+
+Adding More Diagnostics
+-----------------------
+
+The first step is to add the dates for the diagnostics and their settings in the top portion of the suite.rc file.
+
+When you add diagnotics it's important to add to all of the variables for that component.  The groups of variables include the following:
+
+*  ATM diagnostics
+
+    * dates_atm_averages - add dates
+
+    * dates_atm_diagnostics - add dates
+
+    * ATMDIAG_test_first_yr - matches the xml variable
+
+    * ATMDIAG_test_nyrs - matches the xml variable
+
+*  OCN diagnostics
+
+    * dates_ocn_averages - add dates
+
+    * dates_ocn_diagnostics - add dates
+
+    * OCNDIAG_YEAR0 - matches the xml variable
+
+    * OCNDIAG_YEAR1 - matches the xml variable
+
+    * OCNDIAG_TSERIES_YEAR0 - matches the xml variable
+
+    * OCNDIAG_TSERIES_YEAR1 - matches the xml variable
+
+* LND diagnostics
+
+    * dates_lnd_averages - add dates
+
+    * dates_lnd_diagnostics - add dates
+
+    * LNDDIAG_clim_first_yr_1 - matches the xml variable
+
+    * LNDDIAG_trends_first_yr_1 - matches the xml variable
+
+    * LNDDIAG_clim_num_yrs_1 - matches the xml variable
+
+    * LNDDIAG_trends_num_yrs_1 - matches the xml variable
+
+* ICE diagnostics
+
+    * dates_ice_averages - add dates
+
+    * dates_ice_diagnostics - add dates
+
+    * ICEDIAG_BEGYR_DIFF - matches the xml variable
+
+    * ICEDIAG_ENDYR_DIFF - matches the xml variable
+
+    * ICEDIAG_BEGYR_CONT - matches the xml variable
+
+    * ICEDIAG_ENDYR_CONT - matches the xml variable
+
+    * ICEDIAG_YRS_TO_AVG  - matches the xml variable
+
+For each group of variables, make sure you add the same number of entries to each.  Other wise this will result in an error.
+
+The date variables in each group take a comma separated list.  For example, {% set dates_atm_averages = ['0005-01-01','0010-01-01'] %}.
+
+The DIAG variables also allow for comma speparated lists.  For example, {% set ATMDIAG_test_first_yr = [1,5] %}. 
+
+Adding multiple entries allows the diagnostics to be ran more than once during the simulation.  
+
+After you add the diagnostic entries to the lists, they need to be added to the dependency graph so Cylc know when to run them.  This is done in the [[dependencies]] section.  In order to insert the diagnostics, you can follow a similar syntax to what is shown here.  
+
+.. code-block:: bash
+   :linenos:
+
+                 case_st_archive_0005-01-01 => atm_averages_0005-01-01 & ocn_averages_0005-01-01 & lnd_averages_0005-01-01 & ice_averages_0005-01-01 & case_run_0007-01-01
+                 atm_averages_0005-01-01 => atm_diagnostics_0005-01-01 => atm_diagnostics_0005-01-01_post
+                 ocn_averages_0005-01-01 => ocn_diagnostics_0005-01-01 => ocn_diagnostics_0005-01-01_post
+                 lnd_averages_0005-01-01 => lnd_diagnostics_0005-01-01 => lnd_diagnostics_0005-01-01_post
+                 ice_averages_0005-01-01 => ice_diagnostics_0005-01-01 => ice_diagnostics_0005-01-01_post
+
+After you have added the diagnostics into the dependency graph, save your file and run the following command:
+
+.. code-block:: bash
+
+    cylc graph <your casename>.suite.cmip6 
+
+This will open up a window and display your new workflow grpah.  Make sure you don't have any 'float'/non-connected tasks and eerything looks as you would anticipate.  
+
+Once everything looks okay, open up the gui and select the Control->Reload suite definition option.  You may have to close and reopen the gui if the new workflow doesn't load. 
+
+Once the tasks have been added, you will need to right click on them and choose 'Insert' to add them in.  Once you make the selection, a window will pop up with the task listed in the box.  If you have to add muliple tasks, you can replace part of the string with wild card characters to make this task easier.  Once added, the task will change from a gray outline to a blue outline.
+
+
 
 
 

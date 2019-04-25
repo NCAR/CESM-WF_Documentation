@@ -57,20 +57,20 @@ Below is a copy of a suite.rc file that is similar to what is ran for CMIP6 prod
                     case_st_archive_0003-01-01 => case_run_0005-01-01
                     case_run_0005-01-01 => case_st_archive_0005-01-01
                     case_st_archive_0005-01-01 => atm_averages_0005-01-01 & ocn_averages_0005-01-01 & lnd_averages_0005-01-01 & ice_averages_0005-01-01 & case_run_0007-01-01
-                    atm_averages_0005-01-01 => atm_diagnostics_0005-01-01
-                    ocn_averages_0005-01-01 => ocn_diagnostics_0005-01-01
-                    lnd_averages_0005-01-01 => lnd_diagnostics_0005-01-01
-                    ice_averages_0005-01-01 => ice_diagnostics_0005-01-01
+                    atm_averages_0005-01-01 => atm_diagnostics_0005-01-01 => atm_diagnostics_0005-01-01_post
+                    ocn_averages_0005-01-01 => ocn_diagnostics_0005-01-01 => ocn_diagnostics_0005-01-01_post
+                    lnd_averages_0005-01-01 => lnd_diagnostics_0005-01-01 => lnd_diagnostics_0005-01-01_post
+                    ice_averages_0005-01-01 => ice_diagnostics_0005-01-01 => ice_diagnostics_0005-01-01_post
                     case_run_0007-01-01 => case_st_archive_0007-01-01
                     case_st_archive_0007-01-01 => case_run_0009-01-01
                     case_run_0009-01-01 => case_st_archive_0009-01-01
                     case_st_archive_0009-01-01 => case_run_0011-01-01
                     case_run_0011-01-01 => case_st_archive_0011-01-01
                     case_st_archive_0011-01-01 => atm_averages_0010-01-01 & ocn_averages_0010-01-01 & lnd_averages_0010-01-01 & ice_averages_0010-01-01 & timeseriesL_0011-01-01
-                    atm_averages_0010-01-01 => atm_diagnostics_0010-01-01
-                    ocn_averages_0010-01-01 => ocn_diagnostics_0010-01-01
-                    lnd_averages_0010-01-01 => lnd_diagnostics_0010-01-01
-                    ice_averages_0010-01-01 => ice_diagnostics_0010-01-01
+                    atm_averages_0010-01-01 => atm_diagnostics_0010-01-01 => atm_diagnostics_0010-01-01_post
+                    ocn_averages_0010-01-01 => ocn_diagnostics_0010-01-01 => ocn_diagnostics_0010-01-01_post
+                    lnd_averages_0010-01-01 => lnd_diagnostics_0010-01-01 => lnd_diagnostics_0010-01-01_post
+                    ice_averages_0010-01-01 => ice_diagnostics_0010-01-01 => ice_diagnostics_0010-01-01_post
                     timeseriesL_0011-01-01 => xconform_0011-01-01
                    """
 
