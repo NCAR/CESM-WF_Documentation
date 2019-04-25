@@ -1,0 +1,210 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Instructions on how to run an experiment with Cylc &#8212; CESM_WF_DOC 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="How to modify a CESM Cylc workflow if you need to make changes" href="mods.html" />
+    <link rel="prev" title="Instructions on how to setup a CMIP6 experiment" href="instructions_setup.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="instructions-on-how-to-run-an-experiment-with-cylc">
+<span id="instructions-run"></span><h1>Instructions on how to run an experiment with Cylc<a class="headerlink" href="#instructions-on-how-to-run-an-experiment-with-cylc" title="Permalink to this headline">¶</a></h1>
+<p><strong>Instead of submitting any job on the command line, you will run everything through the Cylc interface.</strong></p>
+<ul class="simple">
+<li>Running any queue commands on the command line directly can cause Cylc to become out of sync.</li>
+<li>All tasks within the workflow are updated within its internal database.  So if cheyenne goes down, it can pick up from where it left off.</li>
+</ul>
+<p><strong>Background information on Cylc</strong></p>
+<p>Cylc is a workflow engine that submits jobs to the queue for you in an order that matches the dependencies between the tasks.  It is mainly used to run weather and climate models, but it can be used to run any type of workflow.</p>
+<p>Cylc was originally developed by Hilary Oliver at NIWA, New Zealand.  Since then the UK Met Office has provided additional support and functionality.  It has been adopted by a number of centers including:</p>
+<ul class="simple">
+<li>National Institute of Water and Atmospheric Research (NIWA) - New Zealand</li>
+<li>Met Office - UK</li>
+<li>Max-Planck-Institut für Meteorologie - Germany</li>
+<li>Deutches Klimarechenzentrum (DKRZ) - Germany</li>
+<li>Bureau of Meteorology - Australia</li>
+<li>NRL Marine Meteorology Division - USA</li>
+<li>557th Weather Wing - USA</li>
+<li>Geophysical Fluid Dynamics Laboratory - USA</li>
+<li>Meteorological Service Singapore (MSS) - Singapore</li>
+<li>Phillippine Atmospheric, Geophysical, and Astronomical Services Administration (PAGASA) - Phillippines</li>
+<li>South African Weather Service (SAWS) - South Africa</li>
+<li>National Centre for Medium Range Weather Forecasting - India</li>
+<li>Korean Meteorological Administration (KMA) - Korea</li>
+<li>Centre of Excellence in Simulation of Weather and Climate in Europe - Europe</li>
+<li>National Center for Atmospheric Reserach (NCAR) - USA</li>
+<li>NOAA Environmental Modeling Center - USA</li>
+<li>Euro-Mediterranean Center on Climate Change (CMCC) - Italy</li>
+<li>Plymouth Marine Laboratory - UK</li>
+<li>Barcelona Supercomputing Center (BSC) - Spain</li>
+<li>National Centre for Atmospheric Science (NCAS) - UK</li>
+<li>Centre for Environmental Data Analysis (CEDA) - UK</li>
+<li>ARC Centre of Excellence for Climate Extremes (CLEX) - Australia</li>
+<li>eWaterCycle - Netherlands eScience Center, Univerity of Utrecht, TUDelft</li>
+</ul>
+<p>(from the Cylc website)</p>
+<p>For more details on how to run Cylc above what this page lists, please see the <a class="reference external" href="https://cylc.github.io/">Cylc website</a>.</p>
+<p>Cylc <a class="reference external" href="https://zenodo.org/badge/latestdoi/1836229">DOI 10.5281/zenodo.2549475</a></p>
+<p>Short paper in <a class="reference external" href="https://doi.org/10.21105/joss.00737">Journal of Open Source Software</a></p>
+<p><strong>Instructions for running</strong></p>
+<ol class="arabic simple">
+<li>In your case directory you can find the file Cylc.Instructions.txt.  Open this file and copy the command after “- execute:”.  This should follow something similar to:</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>gcylc <span class="nv">$CASENAME</span>.suite.cmip6
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Once you copy that command, execute it on the command line on the login node.  It’s important to note that you can run that command anywhere on the file system and you do not need to be in a particular directory for it to run.  Once you run that command, a window will open up that looks like the image below</li>
+</ol>
+<img alt="_images/open.png" src="_images/open.png" />
+<ol class="arabic simple" start="3">
+<li>To start the run, select the run button</li>
+</ol>
+<img alt="_images/open-pointtorun.png" src="_images/open-pointtorun.png" />
+<ol class="arabic simple" start="4">
+<li>After clicking run, a box will appear.  If starting it up for the first time, the Cold-start radio button should be selected and you should leave it selected.</li>
+</ol>
+<img alt="_images/coldstart.png" src="_images/coldstart.png" />
+<ol class="arabic simple" start="5">
+<li>Another option is to select “Hold on start-up”.  When this option is selected, the workflow will be in a paused state when “Start” is selected.  This option is preferred if you would like to make sure that the workflow graph looks correct before it starts submitting jobs to the queue.</li>
+</ol>
+<img alt="_images/coldstart-holdonstartup.png" src="_images/coldstart-holdonstartup.png" />
+<ol class="arabic simple" start="6">
+<li>Select the “Start” button.</li>
+</ol>
+<img alt="_images/coldstart-hittingstart.png" src="_images/coldstart-hittingstart.png" />
+<ol class="arabic simple" start="7">
+<li>If you selected “Hold on start-up”, the Cylc interface will look similar to the figure below with the tasks highlighted in a purple/magenta color.</li>
+</ol>
+<img alt="_images/start-with-hold.png" src="_images/start-with-hold.png" />
+<p>To start the run up after everything has been verified, select the “Release” button</p>
+<img alt="_images/start-with-hold-start.png" src="_images/start-with-hold-start.png" />
+<ol class="arabic simple" start="8">
+<li>If you did not select “Hold on start-up” or if you’ve just clicked “Release” from a “Hold on start-up”, the Cylc gui should look similar to the following with the task bubbles starting to change color.</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>A light green color indicates that it was submitted to the queue.</li>
+<li>A darker green color means it’s running.</li>
+<li>A gray color indicates the task finished successfully.</li>
+<li>A megenta color means that it failed while submitting to the queue.</li>
+<li>A red color means that the task exited with a non-zero exit call meaning it failed.</li>
+</ul>
+</div></blockquote>
+<img alt="_images/start.png" src="_images/start.png" />
+<img alt="_images/one-completed.png" src="_images/one-completed.png" />
+<ol class="arabic simple" start="9">
+<li>If you noticed that a task is highlighted in orange like below, it’s indicated that the task has failed and it is waiting before it resubmits the task again.  This is a form of fault tolerance within the workflow and it tries to submit CESM run tasks 4 times before it gives up with a failure.</li>
+</ol>
+<img alt="_images/retry.png" src="_images/retry.png" />
+<ol class="arabic simple" start="10">
+<li>At any time, you can right click on a task in either view and get a menu for that task.</li>
+</ol>
+<img alt="_images/task-fullmenu.png" src="_images/task-fullmenu.png" />
+<ol class="arabic simple" start="11">
+<li>If you select the “Reset State” option in the menu, you can change the state of the task to either “ready”, “waiting”, “succeeded”, or “failed”.  Depending on how you would like the workflow to progress, you may need to change the state of a task.  For example, if a task says it failed, but you know it actually finished okay, you can change it to “succeeded”.  If you don’t want something to run, you can change it to “failed”.</li>
+</ol>
+<img alt="_images/menu-resetstate.png" src="_images/menu-resetstate.png" />
+<ol class="arabic simple" start="12">
+<li>You can also choose to put a task on hold.  You may want to do this if you want to pause the workflow at a certain point in the simulation in order to see if it is progessing as expected.  To do this, select this option in the menu when you right click on the task where you want the pause to take place.  To unpause it, you can select “Release” from the menu or start it up through the “Reset State” option and choose either “ready” or “waiting”.</li>
+</ol>
+<img alt="_images/menu-hold.png" src="_images/menu-hold.png" />
+<ol class="arabic simple" start="13">
+<li>You can also view the jobs script that was submitted to the queue and job stdout and stderr files though the “View” menu.</li>
+</ol>
+<img alt="_images/menu-view.png" src="_images/menu-view.png" />
+<ol class="arabic simple" start="14">
+<li>The 3 options pointed to below, allow you to change the views of the workflow.</li>
+</ol>
+<img alt="_images/view-options.png" src="_images/view-options.png" />
+<ol class="arabic simple" start="15">
+<li>If the workflow has stopped before the simulation completes, for example, cheyenne goes down, open the gui up.  If you no longer see the workflow in the gui, select the “Run” button again.  Then it is very important that the radio button “Restart” is selected.  This will allow the workflow to continue in the same spot it was stopped at.  If you click ‘Cold-start’ this time, you will erase the status and it will want to start the run from the beginning again.</li>
+</ol>
+<img alt="_images/restart.png" src="_images/restart.png" />
+<ol class="arabic simple" start="16">
+<li>It is very important that you do not hit the “Stop Suite” button on the gui.  This will stop the gui after the current job finishes in the queue and you will have to restart it in order for it to continue.  Only hit this button if you really want to stop the run.</li>
+</ol>
+<img alt="_images/stop-suite.png" src="_images/stop-suite.png" />
+<ol class="arabic simple" start="17">
+<li>At any time you can close the gui window either through the “File” menu option or by clicking the window’s red ‘x’ in the corner.  When Cylc starts, it starts a daemon on the log in node that will continue to monitor and submit you jobs even if the gui is no longer open.</li>
+</ol>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="instructions_setup.html" title="previous chapter">Instructions on how to setup a CMIP6 experiment</a></li>
+      <li>Next: <a href="mods.html" title="next chapter">How to modify a CESM Cylc workflow if you need to make changes</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Sheri Mickelson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/instructions_run.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

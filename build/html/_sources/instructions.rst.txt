@@ -1,0 +1,5 @@
+.. _instructions:
+
+Instructions on how to run an experiment with the workflow tools
+================================================================
+

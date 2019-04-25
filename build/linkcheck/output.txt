@@ -1,0 +1,1 @@
+instructions_setup.rst:48: [broken] https://csegweb.cgd.ucar.edu/expdb2.0/cgi-bin/login.cgi: HTTPSConnectionPool(host='csegweb.cgd.ucar.edu', port=443): Max retries exceeded with url: /expdb2.0/cgi-bin/login.cgi (Caused by SSLError(SSLError("bad handshake: Error([('SSL routines', 'ssl3_get_server_certificate', 'certificate verify failed')],)",),))

@@ -1,0 +1,140 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Welcome to the CESM Workflow for CMIP6 documentation &#8212; CESM_WF_DOC 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Instructions on how to setup a CMIP6 experiment" href="instructions_setup.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-the-cesm-workflow-for-cmip6-documentation">
+<h1>Welcome to the CESM Workflow for CMIP6  documentation<a class="headerlink" href="#welcome-to-the-cesm-workflow-for-cmip6-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="instructions_setup.html">Instructions on how to setup a CMIP6 experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instructions_run.html">Instructions on how to run an experiment with Cylc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mods.html">How to modify a CESM Cylc workflow if you need to make changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mods.html#format-of-the-suite-rc-file">Format of the suite.rc File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mods.html#updating-suite-definitions">Updating Suite Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mods.html#modifying-pe-count">Modifying PE Count</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="from_scratch.html">How to create a Cylc CESM workflow from scratch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Common questions and answers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-you-stop-a-simulation-once-it-has-started">How do you stop a simulation once it has started?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-you-pause-a-run-in-order-to-evaluate-it-and-start-it-back-up">How do you pause a run in order to evaluate it and start it back up?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#where-are-my-diagnostics-copied-to">Where are my diagnostics copied to?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#where-do-i-look-to-find-out-why-something-failed">Where do I look to find out why something failed?</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><strong>What the workflow script will setup for you:</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>Creates the CESM case</li>
+<li>Sets up the full post processing suite</li>
+<li>Retrieves the CMIP6 experiment information from the exeriment database</li>
+<li>Determines which variables need to be outputted by CESM</li>
+<li>Sets your CESM and post processing XML variables</li>
+<li>Creates the input specifications needed to generate the published version of the data</li>
+<li>Sends the case information to the database for an initial checkin</li>
+<li>Sets up the Cylc environment for you based on your CESM environment.</li>
+</ul>
+</div></blockquote>
+<p><strong>What can the Cylc interface run automatically for you:</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>All CESM jobs</li>
+<li>The short term archiver between each CESM job</li>
+<li>The four main component diagnostic packages</li>
+<li>The time series generator</li>
+<li>Create the publishable files</li>
+<li>Command line scripts</li>
+</ul>
+</div></blockquote>
+<p><strong>Indices and tables</strong></p>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="instructions_setup.html" title="next chapter">Instructions on how to setup a CMIP6 experiment</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Sheri Mickelson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
