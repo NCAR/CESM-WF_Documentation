@@ -48,9 +48,9 @@
 <p><strong>Important Note.</strong> You will have to edit the RESUBMIT value.  Because we want Cylc to resubmit your jobs and not the CESM environment, the scripts set RESUBMIT to 0 to ensure that CESM won’t resubmit itself.  In order to determine the correct number of iterations that you would like CESM to run, you will have to set RESUBMIT back to the correct value.</p>
 <p>After you make your changes, open up the Cylc.Instructions.txt file within your case directory.  Within this file there is a long command to call CESM_Cylc_setup. Copy this command and run it on the command line.  It is then recommended to follow the first step in the Cylc.Instructions.txt by looking at the workflow.png file that was generated.  Confirm that this is correct before starting the experiment.</p>
 <p><strong>The second way … handle it within the Cylc environment</strong></p>
-<p>If you need to update the pe count or add extra tasks that aren’t visible in a static view of the CESM environment (ie, adding an extra 5 years to a run with a STOP_N set to 10) this is the preferred method.</p>
-<p>First you will need to locate your suite file.  The easiest way to do this is to go into your case directory and look at the file Cylc.Instructions.txt.  The first step to take asks for you to look at workflow.png and contains the path to this file.  cd into the directory where this file is found.  If you’re running a CMIP6 experiment under username cmip6, the path is likely to be /glade/u/home/cmip6/cylc_suites/$CASENAME.  If you’re running an ensemble, the directoy may also contain the member numbers.</p>
-<p>Once in this directory, you will find the ‘suite.rc’ file associated with this experiment.  This file contains all of the instructions needed to run your entire workflow.  Beofre editing this file, it’s recommended you copy the original in case you need to reference it after you make your changes.</p>
+<p>If you need to update the pe count or add extra tasks that aren’t visible in a static view of the CESM environment (i.e., adding an extra 5 years to a run with a STOP_N set to 10) this is the preferred method.</p>
+<p>First you will need to locate your suite file.  The easiest way to do this is to go into your case directory and look at the file Cylc.Instructions.txt.  The first step to take asks for you to look at workflow.png and contains the path to this file.  cd into the directory where this file is found.  If you’re running a CMIP6 experiment under username cmip6, the path is likely to be /glade/u/home/cmip6/cylc_suites/$CASENAME.  If you’re running an ensemble, the directory may also contain the member numbers.</p>
+<p>Once in this directory, you will find the ‘suite.rc’ file associated with this experiment.  This file contains all of the instructions needed to run your entire workflow.  Before editing this file, it’s recommended you copy the original in case you need to reference it after you make your changes.</p>
 <p>Open the suite.rc file and make the edits you would like (see below for more details).</p>
 <p>After any changes to this file, you will need to follow the instructions found in the <a class="reference internal" href="#updating-suites"><span class="std std-ref">Updating Suite Definitions</span></a> section.</p>
 <p><strong>More on hand editing Cylc suite.rc files</strong></p>
@@ -63,16 +63,16 @@
 <div class="section" id="format-of-the-suite-rc-file">
 <span id="format-of-file"></span><h2>Format of the suite.rc File<a class="headerlink" href="#format-of-the-suite-rc-file" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>The file is formatted in jinja2 templating to avoid redundency within the file.</li>
-<li>The top section list the date arrays.  If you need to extend your run or change any dates, you will do that here.</li>
-<li>Right after the dates, are the email addresses where job staus updates will be sent to.</li>
-<li>Next is the dependency graph that deterines when each task will run.  If you’ve added dates into the date arrays, you will have to enter them into the dependency graph as well.  To do this, follow the same format of task1 =&gt; task2, meaning run task1 and if successful, run task2.  If you make any changes here, it is recommended that once you save the suite.rc file, you run the below command to make sure that the graph looks correct and there are no “floating” or unconnected tasks.</li>
+<li>The file is formatted in jinja2 templating to avoid redundancy within the file.</li>
+<li>The top section lists the date arrays.  If you need to extend your run or change any dates, you will do that here.</li>
+<li>Right after the dates, are the email addresses where job status updates will be sent to.</li>
+<li>Next is the dependency graph that determines when each task will run.  If you’ve added dates into the date arrays, you will have to enter them into the dependency graph as well.  To do this, follow the same format of task1 =&gt; task2, meaning run task1 and if successful, run task2.  If you make any changes here, it is recommended that once you save the suite.rc file, you run the below command to make sure that the graph looks correct and there are no “floating” or unconnected tasks.</li>
 </ul>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>cylc graph &lt;your casename&gt;.suite.cmip6
 </pre></div>
 </div>
 <ul class="simple">
-<li>The final section lists the individual types of tasks and how to run them.  This is were you can change pe counts, queues, or anything else that has to do with submitting the jobs.  The task types are listed in the double brackets, for example “[[case_run_{{dates_case_run[i]}} ]]”.</li>
+<li>The final section lists the individual types of tasks and how to run them.  This is where you can change pe counts, queues, or anything else that has to do with submitting the jobs.  The task types are listed in the double brackets, for example “[[case_run_{{dates_case_run[i]}} ]]”.</li>
 </ul>
 </div>
 <div class="section" id="updating-suite-definitions">
@@ -85,18 +85,18 @@
 </pre></div>
 </div>
 <ul class="simple">
-<li>If you’ve started the gui and or the above command fails because it says that this Cylc suite has been started, open the suite in the Cylc gui.  Then select the “Control” menuand then select “Reload Suite Definition”.  After you do this, you will see a blue bar that moves in the corner.  If you’ve added or removed tasks, sometimes you need to close the gui and then reopen it.  You will notice that any new tasks you’ve added are outlined in a gray color.  In this case, right click on the task and choose the “Insert” option.  A box will pop up asking for confirmation for the addition.  This box allows wild cards, so if you are adding several tasks with the same name, you can remove, for example, the date portion of the task anem string and replace it with a ‘*’.  If you’ve just changed a node count or the name of a script that is called, no further action is needed after you select the “Reload Suite Definition” option.</li>
+<li>If you’ve started the gui and or the above command fails because it says that this Cylc suite has been started, open the suite in the Cylc gui.  Then select the “Control” menu and then select “Reload Suite Definition”.  After you do this, you will see a blue bar that moves in the corner.  If you’ve added or removed tasks, sometimes you need to close the gui and then reopen it.  You will notice that any new tasks you’ve added are outlined in a gray color.  In this case, right click on the task and choose the “Insert” option.  A box will pop up asking for confirmation for the addition.  This box allows wild cards, so if you are adding several tasks with the same name, you can remove, for example, the date portion of the task name string and replace it with a ‘*’.  If you’ve just changed a node count or the name of a script that is called, no further action is needed after you select the “Reload Suite Definition” option.</li>
 </ul>
 </div>
 <div class="section" id="modifying-pe-count">
 <span id="id1"></span><h2>Modifying PE Count<a class="headerlink" href="#modifying-pe-count" title="Permalink to this headline">¶</a></h2>
 <p>Open the correct suite.rc file for editing and go to the final section and locate the section for the type of task you need to change.  For example, “[[case_run_{{dates_case_run[i]}} ]]”.  Then modify the “-l = select=……” line to match the top of your .case.run file in your case directory.</p>
-<p>After this change, you will need to follow the instructions found in the <a class="reference internal" href="#updating-suites"><span class="std std-ref">Updating Suite Definitions</span></a> section.</p>
+<p>After this change, you will need to follow the instructions found in the <a class="reference internal" href="#updating-suites"><span class="std std-ref">Updating Suite Definitions</span></a>  section.</p>
 </div>
 <div class="section" id="adding-more-diagnostics">
 <span id="add-more-diags"></span><h2>Adding More Diagnostics<a class="headerlink" href="#adding-more-diagnostics" title="Permalink to this headline">¶</a></h2>
 <p>The first step is to add the dates for the diagnostics and their settings in the top portion of the suite.rc file.</p>
-<p>When you add diagnotics it’s important to add to all of the variables for that component.  The groups of variables include the following:</p>
+<p>When you add diagnostics it’s important to add to all of the variables for that component.  The groups of variables include the following:</p>
 <ul>
 <li><p class="first">ATM diagnostics</p>
 <blockquote>
@@ -146,9 +146,9 @@
 </div></blockquote>
 </li>
 </ul>
-<p>For each group of variables, make sure you add the same number of entries to each.  Other wise this will result in an error.</p>
+<p>For each group of variables, make sure you add the same number of entries to each.  Otherwise this will result in an error.</p>
 <p>The date variables in each group take a comma separated list.  For example, {% set dates_atm_averages = [‘0005-01-01’,‘0010-01-01’] %}.</p>
-<p>The DIAG variables also allow for comma speparated lists.  For example, {% set ATMDIAG_test_first_yr = [1,5] %}.</p>
+<p>The DIAG variables also allow for comma separated lists.  For example, {% set ATMDIAG_test_first_yr = [1,5] %}.</p>
 <p>Adding multiple entries allows the diagnostics to be ran more than once during the simulation.</p>
 <p>After you add the diagnostic entries to the lists, they need to be added to the dependency graph so Cylc know when to run them.  This is done in the [[dependencies]] section.  In order to insert the diagnostics, you can follow a similar syntax to what is shown here.</p>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
@@ -166,9 +166,9 @@
 <div class="highlight-bash"><div class="highlight"><pre><span></span>cylc graph &lt;your casename&gt;.suite.cmip6
 </pre></div>
 </div>
-<p>This will open up a window and display your new workflow grpah.  Make sure you don’t have any ‘float’/non-connected tasks and eerything looks as you would anticipate.</p>
+<p>This will open up a window and display your new workflow graph.  Make sure you don’t have any ‘float’/non-connected tasks and everything looks as you would anticipate.</p>
 <p>Once everything looks okay, open up the gui and select the Control-&gt;Reload suite definition option.  You may have to close and reopen the gui if the new workflow doesn’t load.</p>
-<p>Once the tasks have been added, you will need to right click on them and choose ‘Insert’ to add them in.  Once you make the selection, a window will pop up with the task listed in the box.  If you have to add muliple tasks, you can replace part of the string with wild card characters to make this task easier.  Once added, the task will change from a gray outline to a blue outline.</p>
+<p>Once the tasks have been added, you will need to right click on them and choose ‘Insert’ to add them in.  Once you make the selection, a window will pop up with the task listed in the box.  If you have to add multiple tasks, you can replace part of the string with wild card characters to make this task easier.  Once added, the task will change from a gray outline to a blue outline.</p>
 </div>
 </div>
 

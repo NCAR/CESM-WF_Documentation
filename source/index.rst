@@ -22,11 +22,11 @@ Welcome to the CESM Workflow for CMIP6  documentation
   
   * Creates the CESM case
   * Sets up the full post processing suite
-  * Retrieves the CMIP6 experiment information from the exeriment database
+  * Retrieves the CMIP6 experiment information from the experiment database
   * Determines which variables need to be outputted by CESM
   * Sets your CESM and post processing XML variables
   * Creates the input specifications needed to generate the published version of the data
-  * Sends the case information to the database for an initial checkin
+  * Sends the case information to the database for an initial check-in
   * Sets up the Cylc environment for you based on your CESM environment.
 
 **What can the Cylc interface run automatically for you:**

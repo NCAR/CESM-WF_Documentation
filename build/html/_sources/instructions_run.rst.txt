@@ -7,7 +7,7 @@ Instructions on how to run an experiment with Cylc
 
 * Running any queue commands on the command line directly can cause Cylc to become out of sync.
 
-* All tasks within the workflow are updated within its internal database.  So if cheyenne goes down, it can pick up from where it left off.
+* All tasks within the workflow are updated within its internal database.  So, if cheyenne goes down, it can pick up from where it left off.
 
 **Background information on Cylc**
 
@@ -47,7 +47,7 @@ Cylc was originally developed by Hilary Oliver at NIWA, New Zealand.  Since then
 
 * Centre of Excellence in Simulation of Weather and Climate in Europe - Europe
 
-* National Center for Atmospheric Reserach (NCAR) - USA
+* National Center for Atmospheric Research (NCAR) - USA
 
 * NOAA Environmental Modeling Center - USA
 
@@ -63,7 +63,7 @@ Cylc was originally developed by Hilary Oliver at NIWA, New Zealand.  Since then
 
 * ARC Centre of Excellence for Climate Extremes (CLEX) - Australia
 
-* eWaterCycle - Netherlands eScience Center, Univerity of Utrecht, TUDelft
+* eWaterCycle - Netherlands eScience Center, University of Utrecht, TUDelft
 
 (from the Cylc website)
 
@@ -119,7 +119,7 @@ To start the run up after everything has been verified, select the "Release" but
 
    * A gray color indicates the task finished successfully.  
 
-   * A megenta color means that it failed while submitting to the queue.  
+   * A magenta color means that it failed while submitting to the queue.  
 
    * A red color means that the task exited with a non-zero exit call meaning it failed.
 
@@ -138,7 +138,7 @@ To start the run up after everything has been verified, select the "Release" but
 
 .. image:: images/menu-resetstate.png
 
-(12) You can also choose to put a task on hold.  You may want to do this if you want to pause the workflow at a certain point in the simulation in order to see if it is progessing as expected.  To do this, select this option in the menu when you right click on the task where you want the pause to take place.  To unpause it, you can select "Release" from the menu or start it up through the "Reset State" option and choose either "ready" or "waiting".
+(12) You can also choose to put a task on hold.  You may want to do this if you want to pause the workflow at a certain point in the simulation in order to see if it is progressing as expected.  To do this, select this option in the menu when you right click on the task where you want the pause to take place.  To unpause it, you can select "Release" from the menu or start it up through the "Reset State" option and choose either "ready" or "waiting".
 
 .. image:: images/menu-hold.png
 
@@ -158,6 +158,6 @@ To start the run up after everything has been verified, select the "Release" but
 
 .. image:: images/stop-suite.png
 
-(17) At any time you can close the gui window either through the "File" menu option or by clicking the window's red 'x' in the corner.  When Cylc starts, it starts a daemon on the log in node that will continue to monitor and submit you jobs even if the gui is no longer open.
+(17) At any time, you can close the gui window either through the "File" menu option or by clicking the window's red 'x' in the corner.  When Cylc starts, it starts a daemon on the log in node that will continue to monitor and submit you jobs even if the gui is no longer open.
 
 

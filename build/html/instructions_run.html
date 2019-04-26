@@ -45,7 +45,7 @@
 <p><strong>Instead of submitting any job on the command line, you will run everything through the Cylc interface.</strong></p>
 <ul class="simple">
 <li>Running any queue commands on the command line directly can cause Cylc to become out of sync.</li>
-<li>All tasks within the workflow are updated within its internal database.  So if cheyenne goes down, it can pick up from where it left off.</li>
+<li>All tasks within the workflow are updated within its internal database.  So, if cheyenne goes down, it can pick up from where it left off.</li>
 </ul>
 <p><strong>Background information on Cylc</strong></p>
 <p>Cylc is a workflow engine that submits jobs to the queue for you in an order that matches the dependencies between the tasks.  It is mainly used to run weather and climate models, but it can be used to run any type of workflow.</p>
@@ -65,7 +65,7 @@
 <li>National Centre for Medium Range Weather Forecasting - India</li>
 <li>Korean Meteorological Administration (KMA) - Korea</li>
 <li>Centre of Excellence in Simulation of Weather and Climate in Europe - Europe</li>
-<li>National Center for Atmospheric Reserach (NCAR) - USA</li>
+<li>National Center for Atmospheric Research (NCAR) - USA</li>
 <li>NOAA Environmental Modeling Center - USA</li>
 <li>Euro-Mediterranean Center on Climate Change (CMCC) - Italy</li>
 <li>Plymouth Marine Laboratory - UK</li>
@@ -73,7 +73,7 @@
 <li>National Centre for Atmospheric Science (NCAS) - UK</li>
 <li>Centre for Environmental Data Analysis (CEDA) - UK</li>
 <li>ARC Centre of Excellence for Climate Extremes (CLEX) - Australia</li>
-<li>eWaterCycle - Netherlands eScience Center, Univerity of Utrecht, TUDelft</li>
+<li>eWaterCycle - Netherlands eScience Center, University of Utrecht, TUDelft</li>
 </ul>
 <p>(from the Cylc website)</p>
 <p>For more details on how to run Cylc above what this page lists, please see the <a class="reference external" href="https://cylc.github.io/">Cylc website</a>.</p>
@@ -120,7 +120,7 @@
 <li>A light green color indicates that it was submitted to the queue.</li>
 <li>A darker green color means it’s running.</li>
 <li>A gray color indicates the task finished successfully.</li>
-<li>A megenta color means that it failed while submitting to the queue.</li>
+<li>A magenta color means that it failed while submitting to the queue.</li>
 <li>A red color means that the task exited with a non-zero exit call meaning it failed.</li>
 </ul>
 </div></blockquote>
@@ -139,7 +139,7 @@
 </ol>
 <img alt="_images/menu-resetstate.png" src="_images/menu-resetstate.png" />
 <ol class="arabic simple" start="12">
-<li>You can also choose to put a task on hold.  You may want to do this if you want to pause the workflow at a certain point in the simulation in order to see if it is progessing as expected.  To do this, select this option in the menu when you right click on the task where you want the pause to take place.  To unpause it, you can select “Release” from the menu or start it up through the “Reset State” option and choose either “ready” or “waiting”.</li>
+<li>You can also choose to put a task on hold.  You may want to do this if you want to pause the workflow at a certain point in the simulation in order to see if it is progressing as expected.  To do this, select this option in the menu when you right click on the task where you want the pause to take place.  To unpause it, you can select “Release” from the menu or start it up through the “Reset State” option and choose either “ready” or “waiting”.</li>
 </ol>
 <img alt="_images/menu-hold.png" src="_images/menu-hold.png" />
 <ol class="arabic simple" start="13">
@@ -159,7 +159,7 @@
 </ol>
 <img alt="_images/stop-suite.png" src="_images/stop-suite.png" />
 <ol class="arabic simple" start="17">
-<li>At any time you can close the gui window either through the “File” menu option or by clicking the window’s red ‘x’ in the corner.  When Cylc starts, it starts a daemon on the log in node that will continue to monitor and submit you jobs even if the gui is no longer open.</li>
+<li>At any time, you can close the gui window either through the “File” menu option or by clicking the window’s red ‘x’ in the corner.  When Cylc starts, it starts a daemon on the log in node that will continue to monitor and submit you jobs even if the gui is no longer open.</li>
 </ol>
 </div>
 

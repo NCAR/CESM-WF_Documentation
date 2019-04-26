@@ -16,11 +16,11 @@ After you make your changes, open up the Cylc.Instructions.txt file within your 
 
 **The second way ... handle it within the Cylc environment**
 
-If you need to update the pe count or add extra tasks that aren't visible in a static view of the CESM environment (ie, adding an extra 5 years to a run with a STOP_N set to 10) this is the preferred method.
+If you need to update the pe count or add extra tasks that aren't visible in a static view of the CESM environment (i.e., adding an extra 5 years to a run with a STOP_N set to 10) this is the preferred method.
 
-First you will need to locate your suite file.  The easiest way to do this is to go into your case directory and look at the file Cylc.Instructions.txt.  The first step to take asks for you to look at workflow.png and contains the path to this file.  cd into the directory where this file is found.  If you're running a CMIP6 experiment under username cmip6, the path is likely to be /glade/u/home/cmip6/cylc_suites/$CASENAME.  If you're running an ensemble, the directoy may also contain the member numbers.
+First you will need to locate your suite file.  The easiest way to do this is to go into your case directory and look at the file Cylc.Instructions.txt.  The first step to take asks for you to look at workflow.png and contains the path to this file.  cd into the directory where this file is found.  If you're running a CMIP6 experiment under username cmip6, the path is likely to be /glade/u/home/cmip6/cylc_suites/$CASENAME.  If you're running an ensemble, the directory may also contain the member numbers.
 
-Once in this directory, you will find the 'suite.rc' file associated with this experiment.  This file contains all of the instructions needed to run your entire workflow.  Beofre editing this file, it's recommended you copy the original in case you need to reference it after you make your changes.  
+Once in this directory, you will find the 'suite.rc' file associated with this experiment.  This file contains all of the instructions needed to run your entire workflow.  Before editing this file, it's recommended you copy the original in case you need to reference it after you make your changes.  
 
 Open the suite.rc file and make the edits you would like (see below for more details).
 
@@ -42,20 +42,20 @@ After any changes to this file, you will need to follow the instructions found i
 Format of the suite.rc File
 ---------------------------
 
-* The file is formatted in jinja2 templating to avoid redundency within the file.  
+* The file is formatted in jinja2 templating to avoid redundancy within the file.  
 
-* The top section list the date arrays.  If you need to extend your run or change any dates, you will do that here.
+* The top section lists the date arrays.  If you need to extend your run or change any dates, you will do that here.
 
-* Right after the dates, are the email addresses where job staus updates will be sent to.  
+* Right after the dates, are the email addresses where job status updates will be sent to.  
 
-* Next is the dependency graph that deterines when each task will run.  If you've added dates into the date arrays, you will have to enter them into the dependency graph as well.  To do this, follow the same format of task1 => task2, meaning run task1 and if successful, run task2.  If you make any changes here, it is recommended that once you save the suite.rc file, you run the below command to make sure that the graph looks correct and there are no "floating" or unconnected tasks. 
+* Next is the dependency graph that determines when each task will run.  If you've added dates into the date arrays, you will have to enter them into the dependency graph as well.  To do this, follow the same format of task1 => task2, meaning run task1 and if successful, run task2.  If you make any changes here, it is recommended that once you save the suite.rc file, you run the below command to make sure that the graph looks correct and there are no "floating" or unconnected tasks. 
 
 .. code-block:: bash
 
     cylc graph <your casename>.suite.cmip6 
 
 
-* The final section lists the individual types of tasks and how to run them.  This is were you can change pe counts, queues, or anything else that has to do with submitting the jobs.  The task types are listed in the double brackets, for example "[[case_run_{{dates_case_run[i]}} ]]".
+* The final section lists the individual types of tasks and how to run them.  This is where you can change pe counts, queues, or anything else that has to do with submitting the jobs.  The task types are listed in the double brackets, for example "[[case_run_{{dates_case_run[i]}} ]]".
 
 
 .. _updating_suites:
@@ -71,7 +71,7 @@ Once you complete your edits, save the file.  Then you will do one of two things
 
     cylc register <your casename>.suite.cmip6 /the/directory/to/your/suite.rc/file/
 
-* If you've started the gui and or the above command fails because it says that this Cylc suite has been started, open the suite in the Cylc gui.  Then select the "Control" menuand then select "Reload Suite Definition".  After you do this, you will see a blue bar that moves in the corner.  If you've added or removed tasks, sometimes you need to close the gui and then reopen it.  You will notice that any new tasks you've added are outlined in a gray color.  In this case, right click on the task and choose the "Insert" option.  A box will pop up asking for confirmation for the addition.  This box allows wild cards, so if you are adding several tasks with the same name, you can remove, for example, the date portion of the task anem string and replace it with a '*'.  If you've just changed a node count or the name of a script that is called, no further action is needed after you select the "Reload Suite Definition" option.
+* If you've started the gui and or the above command fails because it says that this Cylc suite has been started, open the suite in the Cylc gui.  Then select the "Control" menu and then select "Reload Suite Definition".  After you do this, you will see a blue bar that moves in the corner.  If you've added or removed tasks, sometimes you need to close the gui and then reopen it.  You will notice that any new tasks you've added are outlined in a gray color.  In this case, right click on the task and choose the "Insert" option.  A box will pop up asking for confirmation for the addition.  This box allows wild cards, so if you are adding several tasks with the same name, you can remove, for example, the date portion of the task name string and replace it with a '*'.  If you've just changed a node count or the name of a script that is called, no further action is needed after you select the "Reload Suite Definition" option.
 
 
 .. _modifying_pe_count:
@@ -81,7 +81,7 @@ Modifying PE Count
 
 Open the correct suite.rc file for editing and go to the final section and locate the section for the type of task you need to change.  For example, "[[case_run_{{dates_case_run[i]}} ]]".  Then modify the "-l = select=......" line to match the top of your .case.run file in your case directory.
 
-After this change, you will need to follow the instructions found in the :ref:`updating_suites` section.
+After this change, you will need to follow the instructions found in the :ref:`updating_suites`  section.
 
 
 .. _add_more_diags:
@@ -91,7 +91,7 @@ Adding More Diagnostics
 
 The first step is to add the dates for the diagnostics and their settings in the top portion of the suite.rc file.
 
-When you add diagnotics it's important to add to all of the variables for that component.  The groups of variables include the following:
+When you add diagnostics it's important to add to all of the variables for that component.  The groups of variables include the following:
 
 *  ATM diagnostics
 
@@ -147,11 +147,11 @@ When you add diagnotics it's important to add to all of the variables for that c
 
     * ICEDIAG_YRS_TO_AVG  - matches the xml variable
 
-For each group of variables, make sure you add the same number of entries to each.  Other wise this will result in an error.
+For each group of variables, make sure you add the same number of entries to each.  Otherwise this will result in an error.
 
 The date variables in each group take a comma separated list.  For example, {% set dates_atm_averages = ['0005-01-01','0010-01-01'] %}.
 
-The DIAG variables also allow for comma speparated lists.  For example, {% set ATMDIAG_test_first_yr = [1,5] %}. 
+The DIAG variables also allow for comma separated lists.  For example, {% set ATMDIAG_test_first_yr = [1,5] %}. 
 
 Adding multiple entries allows the diagnostics to be ran more than once during the simulation.  
 
@@ -172,11 +172,11 @@ After you have added the diagnostics into the dependency graph, save your file a
 
     cylc graph <your casename>.suite.cmip6 
 
-This will open up a window and display your new workflow grpah.  Make sure you don't have any 'float'/non-connected tasks and eerything looks as you would anticipate.  
+This will open up a window and display your new workflow graph.  Make sure you don't have any 'float'/non-connected tasks and everything looks as you would anticipate.  
 
 Once everything looks okay, open up the gui and select the Control->Reload suite definition option.  You may have to close and reopen the gui if the new workflow doesn't load. 
 
-Once the tasks have been added, you will need to right click on them and choose 'Insert' to add them in.  Once you make the selection, a window will pop up with the task listed in the box.  If you have to add muliple tasks, you can replace part of the string with wild card characters to make this task easier.  Once added, the task will change from a gray outline to a blue outline.
+Once the tasks have been added, you will need to right click on them and choose 'Insert' to add them in.  Once you make the selection, a window will pop up with the task listed in the box.  If you have to add multiple tasks, you can replace part of the string with wild card characters to make this task easier.  Once added, the task will change from a gray outline to a blue outline.
 
 
 

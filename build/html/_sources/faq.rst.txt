@@ -28,7 +28,7 @@ There are a couple of ways to do this depended what your end goal may be.
  
     *  Then select the "Stop suite" button at the top.
 
-    *  When you are ready to restart the simulaiton, click the "Run" button and select "Cold-start" to start the run up from the beginning.
+    *  When you are ready to restart the simulation, click the "Run" button and select "Cold-start" to start the run up from the beginning.
 
 *  If you want to stop a run to start it again later:
   
@@ -36,7 +36,7 @@ There are a couple of ways to do this depended what your end goal may be.
  
     *  Then select the "Stop suite" button at the top.
 
-    *  When you are ready to restart the simulaiton, click the "Run" button and select "Restart" to continue where it left off.
+    *  When you are ready to restart the simulation, click the "Run" button and select "Restart" to continue where it left off.
 
 
 .. _pause_run:
@@ -44,7 +44,7 @@ There are a couple of ways to do this depended what your end goal may be.
 How do you pause a run in order to evaluate it and start it back up?
 --------------------------------------------------------------------
 
-*  With the gui open, select the task you would like to pause at and selct the "Hold" option.
+*  With the gui open, select the task you would like to pause at and select the "Hold" option.
 
 *  When you are ready to continue the run, right click on the task and select the "Release" option.
 
@@ -58,7 +58,7 @@ How do you restart a Cylc suite if it has stopped?
 
 *  In the window that pops up, select the 'restart' option and then hit 'Start'
 
-*  Do not select the cold-start option in this window unless you want to start the simulation from the beggining.   
+*  Do not select the cold-start option in this window unless you want to start the simulation from the beginning.   
 
 
 .. _where_diags:

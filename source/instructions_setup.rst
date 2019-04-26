@@ -7,11 +7,11 @@ Instructions on how to setup a CMIP6 experiment
 
   * Creates the CESM case
   * Sets up the full post processing suite
-  * Retrieves the CMIP6 experiment information from the exeriment database
+  * Retrieves the CMIP6 experiment information from the experiment database
   * Determines which variables need to be outputted by CESM
   * Sets your CESM and post processing XML variables
   * Creates the input specifications needed to generate the published version of the data
-  * Sends the case information to the database for an initial checkin
+  * Sends the case information to the database for an initial check-in
   * Sets up the Cylc environment for you based on your CESM environment.
 
 **What can the Cylc interface run automatically for you:**
@@ -29,7 +29,7 @@ This captures a static system.  If things need to be done mid-run, suite customi
 
 (1) Log into cheyenne with the -Y option
 
-(2) Run the following command and when prompted, use your cheyenne credentails to sudo into the cmip6 service account.  This is a special command created by CISL that you should have available to you and allows you to carry your X display information over to the cmip6 account. 
+(2) Run the following command and when prompted, use your cheyenne credentials to sudo into the cmip6 service account.  This is a special command created by CISL that you should have available to you and allows you to carry your X display information over to the cmip6 account. 
 
 .. code-block:: bash
 
@@ -70,17 +70,17 @@ This captures a static system.  If things need to be done mid-run, suite customi
 
        * Select the CMIP6 parent experiment from the pull down menu.  If there isn't a parent, leave it as the default option.  This page is very helpful in determining if an experiment has a CMIP6 parent experiment `CMIP6 experiment cv`_.  You just need to locate your experiment and look at the "parent_activity_id" and "parent_experiment_id" entries.
 
-       * Enter the branch method.  This should only be 'standard' (which is a CESM hybrid run), 'no parent', or a perturbation explaination.
+       * Enter the branch method.  This should only be 'standard' (which is a CESM hybrid run), 'no parent', or a perturbation explanation.
 
        * Enter the number of model years to be ran.
 
        * Enter both the branch time in child (the CESM RUN_STARTDATE value) and the branch time in parent (the CESM RUN_REFDATE).  You can leave the branch time in parent entry blank if the `CMIP6 experiment cv`_ indicates that there is no parent.
 
-       * Fill in the realization, initialization, physics, and forcing idexes.  These are typically all set to 1.  If you need any other values, please contact Sheri or Gary for more directions.
+       * Fill in the realization, initialization, physics, and forcing indexes.  These are typically all set to 1.  If you need any other values, please contact Sheri or Gary for more directions.
 
        * Select the model source.  This should be the model that is used for the experiment.
 
-       * Select the source type.  This may or may not match CESM terminolgy.  For the options that can be selected, you'll need to look up the experiment within the `CMIP6 experiment cv`_.  You'll need to select the "required model compontents" and you can optionally add anything listed under "additional_allowed_model_components".  These are the only options that can be selected.  If anything else is selected, the files cannot be published to ESGF.
+       * Select the source type.  This may or may not match CESM terminology.  For the options that can be selected, you'll need to look up the experiment within the `CMIP6 experiment cv`_.  You'll need to select the "required model components" and you can optionally add anything listed under "additional_allowed_model_components".  These are the only options that can be selected.  If anything else is selected, the files cannot be published to ESGF.
 
        * Select 'Submit' 
 
@@ -96,9 +96,9 @@ This captures a static system.  If things need to be done mid-run, suite customi
 
    * WACCM_RUN, HIRES_RUN, CLM_RUN: leave these set to False unless you are running one of these types of experiments.  If you are, set the correct entry to True.
 
-   * cesm_xml: these are CESM varaibles found within the xml files in the CESM case directory.  The defaults are the main ones that need to be changed for each experiment.  Feel free to add any other xml variables you would like to change.  This script will loop through all of the variables listed and call xml_change to set the variables for you.
+   * cesm_xml: these are CESM variables found within the xml files in the CESM case directory.  The defaults are the main ones that need to be changed for each experiment.  Feel free to add any other xml variables you would like to change.  This script will loop through all of the variables listed and call xml_change to set the variables for you.
 
-   * pp_xml: these are post processing variables that will be set for you.  As with cesm_xml, you can add additional variables if needed.  Some variables can have multiple values if you would like to run the diagnostic packages more than once during a run.  You will need to adhere to this convention example: "1850,1900,1950".  It requires a comma separtated list with no spaces.  You can add as many dates as you would like, except you must make sure that you have the same number of dates for all variables for that modeling component.  For example, if 'ATMDIAG_test_first_yr' has 4 dates, 'ATMDIAG_test_nyrs' must also have 4 dates.  The following variables can have lists:
+   * pp_xml: these are post processing variables that will be set for you.  As with cesm_xml, you can add additional variables if needed.  Some variables can have multiple values if you would like to run the diagnostic packages more than once during a run.  You will need to adhere to this convention example: "1850,1900,1950".  It requires a comma separated list with no spaces.  You can add as many dates as you would like, except you must make sure that you have the same number of dates for all variables for that modeling component.  For example, if 'ATMDIAG_test_first_yr' has 4 dates, 'ATMDIAG_test_nyrs' must also have 4 dates.  The following variables can have lists:
 
       * ATMDIAG_test_first_yr
 
@@ -140,7 +140,7 @@ This captures a static system.  If things need to be done mid-run, suite customi
 
     ./my_cesm_case --case /glade/work/cmip6/cases/MyMIP/my_cesm_case --compset B1850 --res f09_g17
 
-(10) Finalize setting up the experiment.  The setup done by the script may only get you part of the way there, depending on the experiment.  This is the time to make any changes that are needed.  This includes adding extra source mods, modifying the user namelist, adding variable output, and so on.  Once this is complete, you will need to run ./case_setup and ./case_build.  If you've made changes to the pe layout and/or the STOP_N, STOP_OPTION, or RESUBMIT variables in env_run.xml, you will have to edit your Cylc suite.rc file in order to submit your jobs correctly.  See the :ref:`mods` section for these directions.  
+(10) Finalize setting up the experiment.  The setup done by the script may only get you part of the way there, depending on the experiment.  This is the time to make any changes that are needed.  This includes adding extra source mods, modifying the user namelist, adding variable output, and so on.  Once this is complete, you will need to run ./case_setup and ./case_build.  If you've made changes to the pe layout and/or the STOP_N, STOP_OPTION, or RESUBMIT variables in env_run.xml, you will have to edit your Cylc suite.rc file in order to submit your jobs correctly.  See the :ref:`mods`  section for these directions.  
 
      If you're unsure about which variables to output, you can look at the CESM_VARS_NEEDED_* and user_nl_*.fincls files in your CESM case directory for guidance.  Listed in these files are all of the CESM variables you would need to output in order to fulfill the entire request for your particular CMIP6 experiment.  Use caution when selecting high frequency output and only include what you and your group finds important in order for science to be done.  Remember that these lists are just a request and not a demand ...  
 
