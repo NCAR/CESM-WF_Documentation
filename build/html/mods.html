@@ -67,6 +67,7 @@
 <li><a class="reference internal" href="#updating-suites"><span class="std std-ref">Updating Suite Definitions</span></a></li>
 <li><a class="reference internal" href="#modifying-pe-count"><span class="std std-ref">Modifying PE Count</span></a></li>
 <li><a class="reference internal" href="#add-more-diags"><span class="std std-ref">Adding More Diagnostics</span></a></li>
+<li><a class="reference internal" href="#add-sim-length"><span class="std std-ref">Adding More Years to a Simulation</span></a></li>
 </ul>
 <div class="section" id="format-of-the-suite-rc-file">
 <span id="format-of-file"></span><h2>Format of the suite.rc File<a class="headerlink" href="#format-of-the-suite-rc-file" title="Permalink to this headline">¶</a></h2>
@@ -178,6 +179,78 @@
 <p>Once everything looks okay, open up the gui and select the Control-&gt;Reload suite definition option.  You may have to close and reopen the gui if the new workflow doesn’t load.</p>
 <p>Once the tasks have been added, you will need to right click on them and choose ‘Insert’ to add them in.  Once you make the selection, a window will pop up with the task listed in the box.  If you have to add multiple tasks, you can replace part of the string with wild card characters to make this task easier.  Once added, the task will change from a gray outline to a blue outline.</p>
 </div>
+<div class="section" id="adding-more-years-to-a-simulation">
+<span id="add-sim-length"></span><h2>Adding More Years to a Simulation<a class="headerlink" href="#adding-more-years-to-a-simulation" title="Permalink to this headline">¶</a></h2>
+<p>Adding extra years to a simulation is similar to adding extra diagnostics.</p>
+<p>The first step is to add year references to both the “dates_case_run” and “dates_case_st_archive” arrays at the top of the suite.rc file.</p>
+<p>Next you will have to add these new dates to the dependency graph, in a similar way to what is shown here.</p>
+<p>EXISTING CODE:</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span>              case_st_archive_0011-01-01 <span class="o">=</span>&gt; timeseriesL_0011-01-01
+              timeseriesL_0011-01-01 <span class="o">=</span>&gt; xconform_0011-01-01
+</pre></div>
+</td></tr></table></div>
+<p>MODIFED CODE:</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span>              case_st_archive_0011-01-01 <span class="o">=</span>&gt; case_run_0013-01-01
+              case_run_0013-01-01 <span class="o">=</span>&gt; case_st_archive_0013-01-01
+              case_st_archive_0013-01-01 <span class="o">=</span>&gt; timeseriesL_0011-01-01
+              timeseriesL_0011-01-01 <span class="o">=</span>&gt; xconform_0011-01-01
+</pre></div>
+</td></tr></table></div>
+<p>For simplicity, you can leave the dates on the timeseries and xcfonform tasks the same.  It should still run okay as long as the last case_st_archive task points to the timeseries task.</p>
+<p>If you would like for the new CESM run calls to run just <strong>like the others</strong>, you do not have to make any other modifications to this file.</p>
+<p>If you would like to run the new CESM run calls <strong>differently</strong>, for example, run with a different <strong>STOP_N</strong> value, you will need to add the code that is shown below.</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="highlight"><pre><span></span>      <span class="o">[[</span>case_run_0013<span class="o">]]</span>
+      <span class="nv">script</span> <span class="o">=</span> <span class="nb">cd</span> /gpfs/fs1/work/cmip6/cases/DECK/helloworld<span class="p">;</span> ./xmlchange <span class="nv">STOP_N</span><span class="o">=</span><span class="m">3</span><span class="p">;</span> /gpfs/fs1/work/cmip6/cases/DECK/helloworld/case.run.cylc
+      <span class="o">[[[</span>job<span class="o">]]]</span>
+              <span class="nv">method</span> <span class="o">=</span> pbs
+              execution <span class="nb">time</span> <span class="nv">limit</span> <span class="o">=</span> PT12H
+              execution retry <span class="nv">delays</span> <span class="o">=</span> PT30S, PT120S, PT600S
+      <span class="o">[[[</span>directives<span class="o">]]]</span>
+              -A <span class="o">=</span> ACCT00099
+              -q <span class="o">=</span> regular
+              -N <span class="o">=</span> helloworld.run
+              -r <span class="o">=</span> n
+              -j <span class="o">=</span> oe
+              -S <span class="o">=</span> /bin/bash
+              -l <span class="o">=</span> <span class="k">select</span><span class="o">=</span><span class="m">141</span>:ncpus<span class="o">=</span><span class="m">36</span>:mpiprocs<span class="o">=</span><span class="m">12</span>:ompthreads<span class="o">=</span><span class="m">3</span>
+      <span class="o">[[[</span>event hooks<span class="o">]]]</span>
+              started <span class="nv">handler</span> <span class="o">=</span> cylc email-suite
+              succeeded <span class="nv">handler</span> <span class="o">=</span> cylc email-suite
+              failed <span class="nv">handler</span> <span class="o">=</span> cylc email-suite
+</pre></div>
+</td></tr></table></div>
+<p>It is best to go into the last section of the file and find the line similar to “[[case_run_{{dates_case_run[i]}} ]]”.  This line is slightly different if you’re running an ensemble.  Copy this entire section, minus the “for” and “endfor” lines.</p>
+<p>Then change the “[[case_run_{{dates_case_run[i]}} ]]” in the copied section to match the exact year you will need that change.  In the above example, it was change to be “case_run_0013”.</p>
+<p>The last change is to the script line.  You’ll notice that line 2, contains “./xmlchange STOP_N=3”.  This is will be executed before case.run.cylc is called in order to change the value of STOP_N in your case directory.</p>
+<p>After you have finished editing your suite.rc file, save your file and run the following command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cylc graph &lt;your casename&gt;.suite.cmip6
+</pre></div>
+</div>
+<p>This will open up a window and display your new workflow graph.  Make sure you don’t have any ‘float’/non-connected tasks and everything looks as you would anticipate.</p>
+<p>Once everything looks okay, open up the gui and select the Control-&gt;Reload suite definition option.  You may have to close and reopen the gui if the new workflow doesn’t load.</p>
+<p>Once the tasks have been added, you will need to right click on them and choose ‘Insert’ to add them in.  Once you make the selection, a window will pop up with the task listed in the box.  If you have to add multiple tasks, you can replace part of the string with wild card characters to make this task easier.  Once added, the task will change from a gray outline to a blue outline.</p>
+</div>
 </div>
 
 
@@ -222,7 +295,7 @@
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, Sheri Mickelson.
+        &#169; Copyright 2019, University Coorporation for Atmoshperic Research.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
     </div>
   </body>

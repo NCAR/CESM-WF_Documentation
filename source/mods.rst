@@ -37,6 +37,8 @@ After any changes to this file, you will need to follow the instructions found i
 
 * :ref:`add_more_diags`
 
+* :ref:`add_sim_length`
+
 .. _format_of_file:
 
 Format of the suite.rc File
@@ -179,6 +181,78 @@ Once everything looks okay, open up the gui and select the Control->Reload suite
 Once the tasks have been added, you will need to right click on them and choose 'Insert' to add them in.  Once you make the selection, a window will pop up with the task listed in the box.  If you have to add multiple tasks, you can replace part of the string with wild card characters to make this task easier.  Once added, the task will change from a gray outline to a blue outline.
 
 
+.. _add_sim_length:
 
+Adding More Years to a Simulation
+---------------------------------
 
+Adding extra years to a simulation is similar to adding extra diagnostics.  
+
+The first step is to add year references to both the "dates_case_run" and "dates_case_st_archive" arrays at the top of the suite.rc file.
+
+Next you will have to add these new dates to the dependency graph, in a similar way to what is shown here.
+
+EXISTING CODE:
+
+.. code-block:: bash
+   :linenos:
+
+                 case_st_archive_0011-01-01 => timeseriesL_0011-01-01
+                 timeseriesL_0011-01-01 => xconform_0011-01-01
+
+MODIFED CODE:
+
+.. code-block:: bash
+   :linenos:
+
+                 case_st_archive_0011-01-01 => case_run_0013-01-01
+                 case_run_0013-01-01 => case_st_archive_0013-01-01
+                 case_st_archive_0013-01-01 => timeseriesL_0011-01-01
+                 timeseriesL_0011-01-01 => xconform_0011-01-01
+
+For simplicity, you can leave the dates on the timeseries and xcfonform tasks the same.  It should still run okay as long as the last case_st_archive task points to the timeseries task.
+
+If you would like for the new CESM run calls to run just **like the others**, you do not have to make any other modifications to this file.
+
+If you would like to run the new CESM run calls **differently**, for example, run with a different **STOP_N** value, you will need to add the code that is shown below.
+
+.. code-block:: bash
+   :linenos:
+
+         [[case_run_0013]]
+         script = cd /gpfs/fs1/work/cmip6/cases/DECK/helloworld; ./xmlchange STOP_N=3; /gpfs/fs1/work/cmip6/cases/DECK/helloworld/case.run.cylc
+         [[[job]]]
+                 method = pbs
+                 execution time limit = PT12H
+                 execution retry delays = PT30S, PT120S, PT600S
+         [[[directives]]]
+                 -A = ACCT00099
+                 -q = regular
+                 -N = helloworld.run
+                 -r = n
+                 -j = oe
+                 -S = /bin/bash
+                 -l = select=141:ncpus=36:mpiprocs=12:ompthreads=3
+         [[[event hooks]]]
+                 started handler = cylc email-suite
+                 succeeded handler = cylc email-suite
+                 failed handler = cylc email-suite
+
+It is best to go into the last section of the file and find the line similar to "[[case_run_{{dates_case_run[i]}} ]]".  This line is slightly different if you're running an ensemble.  Copy this entire section, minus the "for" and "endfor" lines.
+
+Then change the "[[case_run_{{dates_case_run[i]}} ]]" in the copied section to match the exact year you will need that change.  In the above example, it was change to be "case_run_0013".
+
+The last change is to the script line.  You'll notice that line 2, contains "./xmlchange STOP_N=3".  This is will be executed before case.run.cylc is called in order to change the value of STOP_N in your case directory.
+
+After you have finished editing your suite.rc file, save your file and run the following command:
+
+.. code-block:: bash
+
+    cylc graph <your casename>.suite.cmip6 
+
+This will open up a window and display your new workflow graph.  Make sure you don't have any 'float'/non-connected tasks and everything looks as you would anticipate.
+
+Once everything looks okay, open up the gui and select the Control->Reload suite definition option.  You may have to close and reopen the gui if the new workflow doesn't load.
+
+Once the tasks have been added, you will need to right click on them and choose 'Insert' to add them in.  Once you make the selection, a window will pop up with the task listed in the box.  If you have to add multiple tasks, you can replace part of the string with wild card characters to make this task easier.  Once added, the task will change from a gray outline to a blue outline.
 
