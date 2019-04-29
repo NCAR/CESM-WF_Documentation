@@ -14,6 +14,7 @@ Common questions and answers
 
 * :ref:`find_failure`
 
+* :ref:`pp_failure`
 
 .. _stop_midrun:
 
@@ -88,4 +89,66 @@ Where do I look to find out why something failed?
 
         *  The above will only work if you want to see the last attempt.  If you want to look at previous attempts or want to look at the job status files outside the gui, you can find these files within this path:  /glade/u/home/cmip6/cylc-run/<casename>.suite.cmip6/log/job/1/<task name>/<attempt number>/
 
+
+.. _pp_failure:
+
+What do I do if my timeseries or xconform task fails?
+-----------------------------------------------------
+
+This sometimes fails when the default amount of resources are too small and you're running an experiment with more than 200 years or higher frequency data.  In this case, you will have to give these tasks more resources in the suite.rc file.
+
+First, open your suite.rc file and find the section that looks like the following:
+
+.. code-block:: bash
+   :linenos:
+
+         {% for i in range(0,dates_timeseriesL|length) %}
+         [[timeseriesL_{{dates_timeseriesL[i]}} ]]
+         script = cd /gpfs/fs1/work/cmip6/cases/DECK/helloworld; /gpfs/fs1/work/cmip6/cases/DECK/helloworld/postprocess/timeseriesL
+         [[[job]]]
+                 method = pbs
+                 execution time limit = PT12H
+         [[[directives]]]
+                 -N = timeseries
+                 -q = regular
+                 -l = select=16:ncpus=9:mpiprocs=9
+                 -A = ACCT00099
+         [[[event hooks]]]
+                 started handler = cylc email-suite
+                 succeeded handler = cylc email-suite
+                 failed handler = cylc email-suite
+         {% endfor %}
+
+         {% for i in range(0,dates_xconform|length) %}
+         [[xconform_{{dates_xconform[i]}} ]]
+         script = cd /gpfs/fs1/work/cmip6/cases/DECK/helloworld; /gpfs/fs1/work/cmip6/cases/DECK/helloworld/postprocess/xconform
+         [[[job]]]
+                 method = pbs
+                 execution time limit = PT12H
+         [[[directives]]]
+                 -N = xconform
+                 -q = regular
+                 -l = select=16:ncpus=4:mpiprocs=4
+                 -A = ACCT00099
+         [[[event hooks]]]
+                 started handler = cylc email-suite
+                 succeeded handler = cylc email-suite
+                 failed handler = cylc email-suite
+         {% endfor %}
+
+The lines you will have to modify should be similar to line 10 if your timeseries task failed or line 27 if you xconform task failed.  In most cases, it should be enough to double the first number after "select=" and leave the remaining numbers the same.
+
+After you have finished editing your suite.rc file, save your file and run the following command:
+
+.. code-block:: bash
+
+    cylc jobscript <your casename>.suite.cmip6 timeseriesL_<the date on the task>.1
+    
+    or
+ 
+    cylc jobscript <your casename>.suite.cmip6 xconform_<the date on the task>.1 
+
+This will show you the submit script Cylc will use to submit your job to the system.  Make sure the "-l select=....." directive shows your change.
+
+Once everything looks okay, open up the gui and select the Control->Reload suite definition option.
 
