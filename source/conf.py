@@ -46,7 +46,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'CESM_WF_DOC'
-copyright = u'2019, Sheri Mickelson'
+copyright = u'2019, University Coorporation for Atmoshperic Research'
 author = u'Sheri Mickelson'
 
 # The version info for the project you're documenting, acts as replacement for
