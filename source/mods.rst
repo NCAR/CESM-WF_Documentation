@@ -242,7 +242,7 @@ It is best to go into the last section of the file and find the line similar to 
 
 Then change the "[[case_run_{{dates_case_run[i]}} ]]" in the copied section to match the exact year you will need that change.  In the above example, it was change to be "case_run_0013".
 
-The last change is to the script line.  You'll notice that line 2, contains "./xmlchange STOP_N=3".  This is will be executed before case.run.cylc is called in order to change the value of STOP_N in your case directory.
+The last change is to the script line.  You'll notice that line 2 contains "./xmlchange STOP_N=3".  This is will be executed before case.run.cylc is called in order to change the value of STOP_N in your case directory.  You will have to add a similar call in your script line to match what needs to be changed between CESM run calls.
 
 After you have finished editing your suite.rc file, save your file and run the following command:
 
