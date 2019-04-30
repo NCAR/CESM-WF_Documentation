@@ -53,6 +53,7 @@
 <li><a class="reference internal" href="#where-diags"><span class="std std-ref">Where are my diagnostics copied to?</span></a></li>
 <li><a class="reference internal" href="#find-failure"><span class="std std-ref">Where do I look to find out why something failed?</span></a></li>
 <li><a class="reference internal" href="#pp-failure"><span class="std std-ref">What do I do if my timeseries or xconform task fails?</span></a></li>
+<li><a class="reference internal" href="#where-are-my-files"><span class="std std-ref">Where are all of my files?</span></a></li>
 </ul>
 <div class="section" id="how-do-you-stop-a-simulation-once-it-has-started">
 <span id="stop-midrun"></span><h2>How do you stop a simulation once it has started?<a class="headerlink" href="#how-do-you-stop-a-simulation-once-it-has-started" title="Permalink to this headline">¶</a></h2>
@@ -204,6 +205,19 @@ cylc jobscript &lt;your casename&gt;.suite.cmip6 xconform_&lt;the date on the ta
 </div>
 <p>This will show you the submit script Cylc will use to submit your job to the system.  Make sure the “-l select=…..” directive shows your change.</p>
 <p>Once everything looks okay, open up the gui and select the Control-&gt;Reload suite definition option.</p>
+</div>
+<div class="section" id="where-are-all-of-my-files">
+<span id="where-are-my-files"></span><h2>Where are all of my files?<a class="headerlink" href="#where-are-all-of-my-files" title="Permalink to this headline">¶</a></h2>
+<p><strong>History time slice files (raw model output files):</strong></p>
+<p>/glade/scratch/cmip6/archive/</p>
+<p><strong>History time series files:</strong></p>
+<p>/glade/collections/cdg/timeseries-cmip6/</p>
+<p><strong>CMIP6 formated files:</strong></p>
+<p>/glade/collections/cdg/cmip6/</p>
+<p>or</p>
+<p>/glade/collections/cdg/data/CMIP6/ (once published)</p>
+<p><strong>Restarts and log files from previous runs:</strong></p>
+<p>Campaign storage: /gpfs/csfs1/collections/cmip/CMIP6/</p>
 </div>
 </div>
 

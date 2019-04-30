@@ -16,6 +16,8 @@ Common questions and answers
 
 * :ref:`pp_failure`
 
+* :ref:`where_are_my_files`
+
 .. _stop_midrun:
 
 How do you stop a simulation once it has started?
@@ -152,3 +154,28 @@ This will show you the submit script Cylc will use to submit your job to the sys
 
 Once everything looks okay, open up the gui and select the Control->Reload suite definition option.
 
+
+.. _where_are_my_files:
+
+Where are all of my files?
+--------------------------
+
+**History time slice files (raw model output files):**
+
+/glade/scratch/cmip6/archive/
+
+**History time series files:**
+
+/glade/collections/cdg/timeseries-cmip6/
+
+**CMIP6 formated files:**
+
+/glade/collections/cdg/cmip6/
+
+or
+
+/glade/collections/cdg/data/CMIP6/ (once published)
+
+**Restarts and log files from previous runs:**
+
+Campaign storage: /gpfs/csfs1/collections/cmip/CMIP6/
