@@ -33,7 +33,7 @@ There are a couple of ways to do this depended what your end goal may be.
 
     *  When you are ready to restart the simulation, click the "Run" button and select "Cold-start" to start the run up from the beginning.
 
-*  If you want to stop a run to start it again later:
+*  If you want to stop a run to start it again later (much later - around 2-4 weeks):
   
     *  With the gui open, right click on any task that is running and select the kill option.
  
@@ -47,7 +47,9 @@ There are a couple of ways to do this depended what your end goal may be.
 How do you pause a run in order to evaluate it and start it back up?
 --------------------------------------------------------------------
 
-*  With the gui open, select the task you would like to pause at and select the "Hold" option.
+*  Use this option as opposed to the :ref:`stop_midrun` option if you are expecting to start the run back up within 2 weeks. 
+
+*  With the gui open, select the task you would like to pause at, right click it, and then select the "Hold" option.  More often you'll want to click on the cesm_run task after the next st_archive command (because you want to still archive the latest run).
 
 *  When you are ready to continue the run, right click on the task and select the "Release" option.
 
