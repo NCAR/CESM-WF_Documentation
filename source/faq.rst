@@ -199,7 +199,7 @@ Full example: https://esgf-node.llnl.gov/search/cmip6/?institution_id=NCAR&sourc
 
 .. _fincls:
 
-What are the user_nl_<comp>.fincls file in case directory?
+What are the user_nl_<comp>.fincls files in case directory?
 ----------------------------------------------------------
 
 .. image:: images/fincl.png

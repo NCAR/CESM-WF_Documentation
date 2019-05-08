@@ -54,7 +54,7 @@
 <li><a class="reference internal" href="#find-failure"><span class="std std-ref">Where do I look to find out why something failed?</span></a></li>
 <li><a class="reference internal" href="#pp-failure"><span class="std std-ref">What do I do if my timeseries or xconform task fails?</span></a></li>
 <li><a class="reference internal" href="#where-are-my-files"><span class="std std-ref">Where are all of my files?</span></a></li>
-<li><a class="reference internal" href="#fincls"><span class="std std-ref">What are the user_nl_&lt;comp&gt;.fincls file in case directory?</span></a></li>
+<li><a class="reference internal" href="#fincls"><span class="std std-ref">What are the user_nl_&lt;comp&gt;.fincls files in case directory?</span></a></li>
 </ul>
 <div class="section" id="how-do-you-stop-a-simulation-once-it-has-started">
 <span id="stop-midrun"></span><h2>How do you stop a simulation once it has started?<a class="headerlink" href="#how-do-you-stop-a-simulation-once-it-has-started" title="Permalink to this headline">¶</a></h2>
@@ -227,8 +227,8 @@ cylc jobscript &lt;your casename&gt;.suite.cmip6 xconform_&lt;the date on the ta
 <p>For the WACCM version, try adding to the above base URL: ?institution_id=NCAR&amp;source_id=CESM2-WACCM&amp;experiment_id=1pctCO2</p>
 <p>Full example: <a class="reference external" href="https://esgf-node.llnl.gov/search/cmip6/?institution_id=NCAR&amp;source_id=CESM2&amp;experiment_id=1pctCO2&amp;variant_label=r1i1p1f1&amp;variable_id=pr">https://esgf-node.llnl.gov/search/cmip6/?institution_id=NCAR&amp;source_id=CESM2&amp;experiment_id=1pctCO2&amp;variant_label=r1i1p1f1&amp;variable_id=pr</a></p>
 </div>
-<div class="section" id="what-are-the-user-nl-comp-fincls-file-in-case-directory">
-<span id="fincls"></span><h2>What are the user_nl_&lt;comp&gt;.fincls file in case directory?<a class="headerlink" href="#what-are-the-user-nl-comp-fincls-file-in-case-directory" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-are-the-user-nl-comp-fincls-files-in-case-directory">
+<span id="fincls"></span><h2>What are the user_nl_&lt;comp&gt;.fincls files in case directory?<a class="headerlink" href="#what-are-the-user-nl-comp-fincls-files-in-case-directory" title="Permalink to this headline">¶</a></h2>
 <img alt="_images/fincl.png" src="_images/fincl.png" />
 <p>The above image walks you through the steps that are taken in order to generate these user_nl files.  First the workflow script queries the database to find out which CMIP6 experiment its running.  Once it knows the CMIP6 experiment its running, it then queries the CMIP6 data request to find out which variables are being requested for the experiment you are running.  Once it has the variable list, it then cross references the recipes given to derive the CMIP6 variables from CESM output.  From these recipes, we’re able to find out which CESM variables are needed to create the requested CMIP6 variables and these are put into the correct fincl files for each of the time frequencies that are requested.</p>
 <p>These lists are not used by you simulations and are only for guidance on which variables to output from the model.  It’s recommended that you look over these lists carefully as they include high frequency output.  The lists also contain variables that the model may not be able to output.  This is the case when the variables provided can only be outputted by WACCM, but you are running a CAM simulation.</p>
