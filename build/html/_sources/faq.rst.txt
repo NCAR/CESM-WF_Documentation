@@ -190,23 +190,30 @@ The base URL is:  https://esgf-node.llnl.gov/search/cmip6/
 
 Then you can add query strings to get specific search results directly without going through the search options:
 
-For example, to find the results from the CESM2 1pctCO2 experiment, add: ?institution_id=NCAR&source_id=CESM2&experiment_id=1pctCO2
+For example, to find the results from the CESM2 1pctCO2 experiment, add: 
 
-For the WACCM version, try adding to the above base URL: ?institution_id=NCAR&source_id=CESM2-WACCM&experiment_id=1pctCO2
+?institution_id=NCAR&source_id=CESM2&experiment_id=1pctCO2
 
-Full example: https://esgf-node.llnl.gov/search/cmip6/?institution_id=NCAR&source_id=CESM2&experiment_id=1pctCO2&variant_label=r1i1p1f1&variable_id=pr 
+For the WACCM version, try adding to the above base URL: 
 
+?institution_id=NCAR&source_id=CESM2-WACCM&experiment_id=1pctCO2
+
+Full example: 
+
+https://esgf-node.llnl.gov/search/cmip6/?institution_id=NCAR&source_id=CESM2&experiment_id=1pctCO2&variant_label=r1i1p1f1&variable_id=pr 
+
+You can add and remove any of the options to change your search results.
 
 .. _fincls:
 
 What are the user_nl_<comp>.fincls files in case directory?
-----------------------------------------------------------
+------------------------------------------------------------
 
 .. image:: images/fincl.png
 
 The above image walks you through the steps that are taken in order to generate these user_nl files.  First the workflow script queries the database to find out which CMIP6 experiment its running.  Once it knows the CMIP6 experiment its running, it then queries the CMIP6 data request to find out which variables are being requested for the experiment you are running.  Once it has the variable list, it then cross references the recipes given to derive the CMIP6 variables from CESM output.  From these recipes, we're able to find out which CESM variables are needed to create the requested CMIP6 variables and these are put into the correct fincl files for each of the time frequencies that are requested.
 
-These lists are not used by you simulations and are only for guidance on which variables to output from the model.  It's recommended that you look over these lists carefully as they include high frequency output.  The lists also contain variables that the model may not be able to output.  This is the case when the variables provided can only be outputted by WACCM, but you are running a CAM simulation.  
+These lists are not used by your simulations and are only for guidance on which variables to output from the model.  It's recommended that you look over these lists carefully as they include high frequency output.  The lists also contain variables that the model may not be able to output.  This is the case when the variables provided can only be outputted by WACCM, but you are running a CAM simulation.  
 
 When setting up the simulation, it is recommended that you use these lists as guidance.  **Always copy over what is in the user_nl_cice.fincls file otherwise you will not get the correct CICE variables.**  In regards to the other files, use caution when outputting high frequency output and if you add any other variables to these lists.  We want you to be able to have enough output for your science, but it's a shared space used by all of the experiments.  
 

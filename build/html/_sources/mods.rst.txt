@@ -219,7 +219,7 @@ If you would like to run the new CESM run calls **differently**, for example, ru
 .. code-block:: bash
    :linenos:
 
-         [[case_run_0013]]
+         [[case_run_0013-01-01]]
          script = cd /gpfs/fs1/work/cmip6/cases/DECK/helloworld; ./xmlchange STOP_N=3; /gpfs/fs1/work/cmip6/cases/DECK/helloworld/case.run.cylc
          [[[job]]]
                  method = pbs

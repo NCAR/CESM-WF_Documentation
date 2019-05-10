@@ -190,19 +190,24 @@ The base URL is:  https://esgf-node.llnl.gov/search/cmip6/
 
 Then you can add query strings to get specific search results directly without going through the search options:
 
-For example, to find the results from the CESM2 1pctCO2 experiment, add: ?institution_id=NCAR&source_id=CESM2&experiment_id=1pctCO2
+For example, to find the results from the CESM2 1pctCO2 experiment, add: 
 
-For the WACCM version, try adding to the above base URL: ?institution_id=NCAR&source_id=CESM2-WACCM&experiment_id=1pctCO2
+?institution_id=NCAR&source_id=CESM2&experiment_id=1pctCO2
+
+For the WACCM version, try adding to the above base URL: 
+
+?institution_id=NCAR&source_id=CESM2-WACCM&experiment_id=1pctCO2
 
 Full example: 
 
 https://esgf-node.llnl.gov/search/cmip6/?institution_id=NCAR&source_id=CESM2&experiment_id=1pctCO2&variant_label=r1i1p1f1&variable_id=pr 
 
+You can add and remove any of the options to change your search results.
 
 .. _fincls:
 
 What are the user_nl_<comp>.fincls files in case directory?
-----------------------------------------------------------
+------------------------------------------------------------
 
 .. image:: images/fincl.png
 
