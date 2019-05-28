@@ -20,6 +20,8 @@ Common questions and answers
 
 * :ref:`fincls`
 
+* :ref:`bgc_error`
+
 .. _stop_midrun:
 
 How do you stop a simulation once it has started?
@@ -216,4 +218,17 @@ The above image walks you through the steps that are taken in order to generate 
 These lists are not used by your simulations and are only for guidance on which variables to output from the model.  It's recommended that you look over these lists carefully as they include high frequency output.  The lists also contain variables that the model may not be able to output.  This is the case when the variables provided can only be outputted by WACCM, but you are running a CAM simulation.  
 
 When setting up the simulation, it is recommended that you use these lists as guidance.  **Always copy over what is in the user_nl_cice.fincls file otherwise you will not get the correct CICE variables.**  In regards to the other files, use caution when outputting high frequency output and if you add any other variables to these lists.  We want you to be able to have enough output for your science, but it's a shared space used by all of the experiments.  
+
+
+.. _bgc_error:
+
+How do you continue a run after hitting the BGC error?
+------------------------------------------------------
+
+If you hit an error within the ocean model that contains several MARBL warnings and errors, you'll need to change the timestepping in the ocean model.  In the user_nl_pop file add the following line:
+
+dt_count=48
+
+Then you'll probably want to add one or two extra nodes to your ocean pe layout.  Then run case.setup and then rebuild. Then you'll need to follow the directions with the section :ref:`modifying_pe_count`  to change the pe count within Cylc.  
+
 
