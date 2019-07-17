@@ -36,6 +36,10 @@ Some common mistakes include:
 
     * If the experiment is listed as having a parent, this should be set to 'standard' if you are running a hybrid run.  If you are adding a pertlim, instead of standard, you will add information in regards to pertlim value selected.
 
+* parent_variant_label
+
+    * Make sure the number after the "r"  matches the ensemble member number of the parent.
+
 * All other fields
     
 .. _CMIP6 experiment cv: https://github.com/WCRP-CMIP/CMIP6_CVs/blob/master/CMIP6_experiment_id.json
