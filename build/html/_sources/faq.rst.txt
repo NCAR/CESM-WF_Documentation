@@ -22,6 +22,12 @@ Common questions and answers
 
 * :ref:`bgc_error`
 
+* :ref:`clm_pio_error`
+
+* :ref:`redo_pp`
+
+* :ref:`remove_everything`
+
 .. _stop_midrun:
 
 How do you stop a simulation once it has started?
@@ -231,4 +237,94 @@ dt_count=48
 
 Then you'll probably want to add one or two extra nodes to your ocean pe layout.  Then run case.setup and then rebuild. Then you'll need to follow the directions with the section :ref:`modifying_pe_count`  to change the pe count within Cylc.  
 
+
+.. _clm_pio_error:
+
+How do you continue a run after hitting the CLM/PIO error?
+----------------------------------------------------------
+
+If you hit an error similar to this located in your cesm.log.* file:
+
+.. code-block:: bash
+
+    1: pio_support::pio_die:: myrank=          -1 : ERROR: 
+    1: pionfwrite_mod::write_nfdarray_double:         250 : 
+    1: NetCDF: Numeric conversion not representable
+
+    1:Image              PC                Routine            Line        Source             
+    1:cesm.exe           000000000413557D  Unknown               Unknown  Unknown
+    1:cesm.exe           0000000003A39571  pio_support_mp_pi         118  pio_support.F90
+    1:cesm.exe           0000000003A37A11  pio_utils_mp_chec          59  pio_utils.F90
+    1:cesm.exe           0000000003B4905E  pionfwrite_mod_mp         250  pionfwrite_mod.F90.in
+    1:cesm.exe           0000000003B15A93  piodarray_mp_writ         650  piodarray.F90.in
+    1:cesm.exe           0000000003B18BB1  piodarray_mp_writ         221  piodarray.F90.in
+    1:cesm.exe           00000000027628A2  ncdio_pio_mp_ncd_        1684  ncdio_pio.F90.in
+    1:cesm.exe           00000000026F2359  histfilemod_mp_hf        3004  histFileMod.F90
+    1:cesm.exe           00000000026E32B5  histfilemod_mp_hi        3507  histFileMod.F90
+    1:cesm.exe           0000000002672B28  clm_driver_mp_clm        1152  clm_driver.F90
+    1:cesm.exe           000000000266059E  lnd_comp_mct_mp_l         456  lnd_comp_mct.F90
+    1:cesm.exe           0000000000425984  component_mod_mp_         728  component_mod.F90
+    1:cesm.exe           000000000040B96C  cime_comp_mod_mp_        2712  cime_comp_mod.F90
+    1:cesm.exe           0000000000425617  MAIN__                    125  cime_driver.F90
+    1:cesm.exe           000000000040965E  Unknown               Unknown  Unknown
+    1:libc.so.6          00002B2EB47FA6E5  __libc_start_main     Unknown  Unknown
+    1:cesm.exe           0000000000409569  Unknown               Unknown  Unknown
+
+Copy the source mods located in:
+
+/glade/u/home/cmip6/PATCHES/clm-pio-bug_07-09-2019
+
+Then rebuild your code and start your run up again from the last restart file set.
+
+
+
+.. _redo_pp:
+
+How do you rerun the postprocessing of the timeseries and the standardized CMIP6 files?
+---------------------------------------------------------------------------------------
+
+The first step is to figure out where the incorrect directories exist.  You can find these directories by cd'ing into your $casedir/postprocess directory and running either of the below commands.
+
+.. code-block:: bash
+
+   ./pp_config --get TIMESERIES_OUTPUT_ROOTDIR
+   ./pp_config --get CONFORM_OUTPUT_DIR
+
+Then as the cmip6 user, move these to a 'back/old' directory.
+
+Then you can rerun the postprocessing by either running
+
+qsub timeseriesL
+
+and/or
+
+qsub xconform
+
+Or you can retrigger thes tasks in the Cylc gui by changing their status to ready.  If you would like to rerun both, first reset the timeseries task to ready and then reset the xconform task to waiting.
+
+
+.. _remove_everything:
+
+If I want to recreate a case from scratch, what do I have to remove to get rid of the existing case?
+-----------------------------------------------------------------------------------------------------
+
+If you've created a case and you need to remove it and recreate it you'll have to remove a couple of directories.  These include:
+
+* $cesm_casedir
+
+* $cesm_rundir
+
+Out of caution, it's usually best to just move these directories to new names to avoid accidentally removing an incorrect case.
+
+If you've started running the experiment, it's also best to move the output directory:
+
+* /glade/scratch/cmip6/archive/$cesm_casename
+
+If you've started running the experiment with Cylc, you will also have to stop the suite.  To do this, kill any running tasks by right clicking on them in the gui and selected the kill option.  After all tasks have stopped, select the 'stop suite' at the top.  After you do this the workflow views should disappear from view.
+
+After everything has stopped, you can also move the cylc directory that holds your suite's run state to another name.  This is found here:
+
+* ~cmip6/cylc-run/$cesm_casename.suite.cmip6/
+
+After this is complete, you can rerun the create script.
 

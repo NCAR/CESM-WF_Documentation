@@ -15,7 +15,7 @@ Welcome to the CESM Workflow for CMIP6  documentation
    mods
    from_scratch
    faq
-
+   extra_cmip_instructions
 
 
 **What the workflow script will setup for you:**

@@ -23,6 +23,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Extra Instructions for CMIP6 Experiments" href="extra_cmip_instructions.html" />
     <link rel="prev" title="How to create a Cylc CESM workflow from scratch" href="from_scratch.html" /> 
   </head>
   <body>
@@ -32,6 +33,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="extra_cmip_instructions.html" title="Extra Instructions for CMIP6 Experiments"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="from_scratch.html" title="How to create a Cylc CESM workflow from scratch"
              accesskey="P">previous</a> |</li>
@@ -56,6 +60,9 @@
 <li><a class="reference internal" href="#where-are-my-files"><span class="std std-ref">Where are all of my files?</span></a></li>
 <li><a class="reference internal" href="#fincls"><span class="std std-ref">What are the user_nl_&lt;comp&gt;.fincls files in case directory?</span></a></li>
 <li><a class="reference internal" href="#bgc-error"><span class="std std-ref">How do you continue a run after hitting the BGC error?</span></a></li>
+<li><a class="reference internal" href="#clm-pio-error"><span class="std std-ref">How do you continue a run after hitting the CLM/PIO error?</span></a></li>
+<li><a class="reference internal" href="#redo-pp"><span class="std std-ref">How do you rerun the postprocessing of the timeseries and the standardized CMIP6 files?</span></a></li>
+<li><a class="reference internal" href="#remove-everything"><span class="std std-ref">If I want to recreate a case from scratch, what do I have to remove to get rid of the existing case?</span></a></li>
 </ul>
 <div class="section" id="how-do-you-stop-a-simulation-once-it-has-started">
 <span id="stop-midrun"></span><h2>How do you stop a simulation once it has started?<a class="headerlink" href="#how-do-you-stop-a-simulation-once-it-has-started" title="Permalink to this headline">¶</a></h2>
@@ -245,6 +252,70 @@ cylc jobscript &lt;your casename&gt;.suite.cmip6 xconform_&lt;the date on the ta
 <p>dt_count=48</p>
 <p>Then you’ll probably want to add one or two extra nodes to your ocean pe layout.  Then run case.setup and then rebuild. Then you’ll need to follow the directions with the section <a class="reference internal" href="mods.html#modifying-pe-count"><span class="std std-ref">Modifying PE Count</span></a>  to change the pe count within Cylc.</p>
 </div>
+<div class="section" id="how-do-you-continue-a-run-after-hitting-the-clm-pio-error">
+<span id="clm-pio-error"></span><h2>How do you continue a run after hitting the CLM/PIO error?<a class="headerlink" href="#how-do-you-continue-a-run-after-hitting-the-clm-pio-error" title="Permalink to this headline">¶</a></h2>
+<p>If you hit an error similar to this located in your cesm.log.* file:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="m">1</span>: pio_support::pio_die:: <span class="nv">myrank</span><span class="o">=</span>          -1 : ERROR:
+<span class="m">1</span>: pionfwrite_mod::write_nfdarray_double:         <span class="m">250</span> :
+<span class="m">1</span>: NetCDF: Numeric conversion not representable
+
+<span class="m">1</span>:Image              PC                Routine            Line        Source
+<span class="m">1</span>:cesm.exe           000000000413557D  Unknown               Unknown  Unknown
+<span class="m">1</span>:cesm.exe           0000000003A39571  pio_support_mp_pi         <span class="m">118</span>  pio_support.F90
+<span class="m">1</span>:cesm.exe           0000000003A37A11  pio_utils_mp_chec          <span class="m">59</span>  pio_utils.F90
+<span class="m">1</span>:cesm.exe           0000000003B4905E  pionfwrite_mod_mp         <span class="m">250</span>  pionfwrite_mod.F90.in
+<span class="m">1</span>:cesm.exe           0000000003B15A93  piodarray_mp_writ         <span class="m">650</span>  piodarray.F90.in
+<span class="m">1</span>:cesm.exe           0000000003B18BB1  piodarray_mp_writ         <span class="m">221</span>  piodarray.F90.in
+<span class="m">1</span>:cesm.exe           00000000027628A2  ncdio_pio_mp_ncd_        <span class="m">1684</span>  ncdio_pio.F90.in
+<span class="m">1</span>:cesm.exe           00000000026F2359  histfilemod_mp_hf        <span class="m">3004</span>  histFileMod.F90
+<span class="m">1</span>:cesm.exe           00000000026E32B5  histfilemod_mp_hi        <span class="m">3507</span>  histFileMod.F90
+<span class="m">1</span>:cesm.exe           0000000002672B28  clm_driver_mp_clm        <span class="m">1152</span>  clm_driver.F90
+<span class="m">1</span>:cesm.exe           000000000266059E  lnd_comp_mct_mp_l         <span class="m">456</span>  lnd_comp_mct.F90
+<span class="m">1</span>:cesm.exe           <span class="m">0000000000425984</span>  component_mod_mp_         <span class="m">728</span>  component_mod.F90
+<span class="m">1</span>:cesm.exe           000000000040B96C  cime_comp_mod_mp_        <span class="m">2712</span>  cime_comp_mod.F90
+<span class="m">1</span>:cesm.exe           <span class="m">0000000000425617</span>  MAIN__                    <span class="m">125</span>  cime_driver.F90
+<span class="m">1</span>:cesm.exe           000000000040965E  Unknown               Unknown  Unknown
+<span class="m">1</span>:libc.so.6          00002B2EB47FA6E5  __libc_start_main     Unknown  Unknown
+<span class="m">1</span>:cesm.exe           <span class="m">0000000000409569</span>  Unknown               Unknown  Unknown
+</pre></div>
+</div>
+<p>Copy the source mods located in:</p>
+<p>/glade/u/home/cmip6/PATCHES/clm-pio-bug_07-09-2019</p>
+<p>Then rebuild your code and start your run up again from the last restart file set.</p>
+</div>
+<div class="section" id="how-do-you-rerun-the-postprocessing-of-the-timeseries-and-the-standardized-cmip6-files">
+<span id="redo-pp"></span><h2>How do you rerun the postprocessing of the timeseries and the standardized CMIP6 files?<a class="headerlink" href="#how-do-you-rerun-the-postprocessing-of-the-timeseries-and-the-standardized-cmip6-files" title="Permalink to this headline">¶</a></h2>
+<p>The first step is to figure out where the incorrect directories exist.  You can find these directories by cd’ing into your $casedir/postprocess directory and running either of the below commands.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>./pp_config --get TIMESERIES_OUTPUT_ROOTDIR
+./pp_config --get CONFORM_OUTPUT_DIR
+</pre></div>
+</div>
+<p>Then as the cmip6 user, move these to a ‘back/old’ directory.</p>
+<p>Then you can rerun the postprocessing by either running</p>
+<p>qsub timeseriesL</p>
+<p>and/or</p>
+<p>qsub xconform</p>
+<p>Or you can retrigger thes tasks in the Cylc gui by changing their status to ready.  If you would like to rerun both, first reset the timeseries task to ready and then reset the xconform task to waiting.</p>
+</div>
+<div class="section" id="if-i-want-to-recreate-a-case-from-scratch-what-do-i-have-to-remove-to-get-rid-of-the-existing-case">
+<span id="remove-everything"></span><h2>If I want to recreate a case from scratch, what do I have to remove to get rid of the existing case?<a class="headerlink" href="#if-i-want-to-recreate-a-case-from-scratch-what-do-i-have-to-remove-to-get-rid-of-the-existing-case" title="Permalink to this headline">¶</a></h2>
+<p>If you’ve created a case and you need to remove it and recreate it you’ll have to remove a couple of directories.  These include:</p>
+<ul class="simple">
+<li>$cesm_casedir</li>
+<li>$cesm_rundir</li>
+</ul>
+<p>Out of caution, it’s usually best to just move these directories to new names to avoid accidentally removing an incorrect case.</p>
+<p>If you’ve started running the experiment, it’s also best to move the output directory:</p>
+<ul class="simple">
+<li>/glade/scratch/cmip6/archive/$cesm_casename</li>
+</ul>
+<p>If you’ve started running the experiment with Cylc, you will also have to stop the suite.  To do this, kill any running tasks by right clicking on them in the gui and selected the kill option.  After all tasks have stopped, select the ‘stop suite’ at the top.  After you do this the workflow views should disappear from view.</p>
+<p>After everything has stopped, you can also move the cylc directory that holds your suite’s run state to another name.  This is found here:</p>
+<ul class="simple">
+<li>~cmip6/cylc-run/$cesm_casename.suite.cmip6/</li>
+</ul>
+<p>After this is complete, you can rerun the create script.</p>
+</div>
 </div>
 
 
@@ -256,6 +327,9 @@ cylc jobscript &lt;your casename&gt;.suite.cmip6 xconform_&lt;the date on the ta
   <h4>Previous topic</h4>
   <p class="topless"><a href="from_scratch.html"
                         title="previous chapter">How to create a Cylc CESM workflow from scratch</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="extra_cmip_instructions.html"
+                        title="next chapter">Extra Instructions for CMIP6 Experiments</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -276,6 +350,9 @@ cylc jobscript &lt;your casename&gt;.suite.cmip6 xconform_&lt;the date on the ta
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="extra_cmip_instructions.html" title="Extra Instructions for CMIP6 Experiments"
+             >next</a> |</li>
         <li class="right" >
           <a href="from_scratch.html" title="How to create a Cylc CESM workflow from scratch"
              >previous</a> |</li>
