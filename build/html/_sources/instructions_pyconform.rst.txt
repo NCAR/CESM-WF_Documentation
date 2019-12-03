@@ -7,7 +7,7 @@ Instructions on how to setup and run PyConform independent of the workflow
 
 **The database is found at https://csegweb.cgd.ucar.edu/expdb2.0**
 
-**One Time Setup**  
+One Time Setup  
 ------------------
 
 (1) Run the below command
@@ -29,7 +29,7 @@ Then run
 
     chmod 600 ~/.subversion/cmip6.conf
 
-**Instructions for Running PyConform on Cheyenne**
+Instructions for Running PyConform on Cheyenne
 --------------------------------------------------
 
 (1) Setup the post-processing environment variables:
