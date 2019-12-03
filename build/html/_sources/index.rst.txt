@@ -16,7 +16,7 @@ Welcome to the CESM Workflow for CMIP6  documentation
    from_scratch
    faq
    extra_cmip_instructions
-
+   instructions_pyconform
 
 **What the workflow script will setup for you:**
   
