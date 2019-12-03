@@ -57,6 +57,7 @@ Instructions for Running PyConform on Cheyenne
     alias cesm_pp_activate 'source $POSTPROCESS_PATH/cesm-env2/bin/activate.csh'
     cesm_pp_activate
     create_postprocess --caseroot [fully-qualified-path-to-caseroot]
+    deactivate
     ./archive_metadata --query_cmip6 [casename that matches name in database]  db.json --user [your-username] --password --expType CMIP6
 
 (5) Take a look at the $CASE/archive_files/db.json file to verify the information is correct.
